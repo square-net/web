@@ -19,11 +19,36 @@ import {
 } from "../styles/global";
 import { toErrorMap } from "../utils/toErrorMap";
 import { setAccessToken } from "../utils/token";
+import { browserName, isMobile, isBrowser, mobileModel, osName } from "react-device-detect";
+import { getUserLocationFromAPI } from "../utils/getLocation";
+import { useEffect, useState } from "react";
 
 function Login() {
     const [login] = useLoginMutation();
 
     const navigate = useNavigate();
+
+    let clientName = "";
+
+    if (isBrowser) {
+        clientName = browserName;
+    } else if (isMobile) {
+        clientName = mobileModel;
+    } else {
+        clientName = "Unrecognized client";
+    }
+
+    const [userLocation, setUserLocation] = useState("");
+
+    useEffect(() => {
+        const response = getUserLocationFromAPI();
+
+        response.then((response) => {
+            setUserLocation(`${response.data.city}, ${response.data.country}`);
+        })
+    }, []);
+
+    console.log(userLocation);
 
     return (
         <>
@@ -36,7 +61,13 @@ function Login() {
                     <AuthForm>
                         <AuthFormTitle>Log in</AuthFormTitle>
                         <Formik
-                            initialValues={{ input: "", password: "", clientOS: "", clientName: "", deviceLocation: "" }}
+                            initialValues={{ 
+                                input: "", 
+                                password: "", 
+                                clientOS: osName, 
+                                clientName, 
+                                deviceLocation: userLocation,
+                            }}
                             onSubmit={async (
                                 values,
                                 { setErrors, setStatus }
