@@ -126,7 +126,7 @@ export type User = {
   gender: Scalars['String'];
   id: Scalars['Int'];
   lastName: Scalars['String'];
-  profile: Profile;
+  profile?: Maybe<Profile>;
   sessions?: Maybe<Array<Session>>;
   username: Scalars['String'];
 };
@@ -149,14 +149,14 @@ export type EditProfileMutationVariables = Exact<{
 }>;
 
 
-export type EditProfileMutation = { __typename?: 'Mutation', editProfile: { __typename?: 'UserResponse', status?: string | null | undefined, errors?: Array<{ __typename?: 'FieldError', field?: string | null | undefined, message: string }> | null | undefined, user?: { __typename?: 'User', id: number, firstName: string, lastName: string, username: string, email: string, gender: string, birthDate: string, emailVerified: boolean, profile: { __typename?: 'Profile', profilePicture?: string | null | undefined, profileBanner?: string | null | undefined, bio?: string | null | undefined, website?: string | null | undefined } } | null | undefined } };
+export type EditProfileMutation = { __typename?: 'Mutation', editProfile: { __typename?: 'UserResponse', status?: string | null | undefined, errors?: Array<{ __typename?: 'FieldError', field?: string | null | undefined, message: string }> | null | undefined, user?: { __typename?: 'User', id: number, firstName: string, lastName: string, username: string, email: string, gender: string, birthDate: string, emailVerified: boolean, profile?: { __typename?: 'Profile', profilePicture?: string | null | undefined, profileBanner?: string | null | undefined, bio?: string | null | undefined, website?: string | null | undefined } | null | undefined } | null | undefined } };
 
 export type FindUserQueryVariables = Exact<{
   username?: InputMaybe<Scalars['String']>;
 }>;
 
 
-export type FindUserQuery = { __typename?: 'Query', findUser?: { __typename?: 'User', id: number, username: string, firstName: string, lastName: string, email: string, birthDate: string, gender: string, emailVerified: boolean, profile: { __typename?: 'Profile', profilePicture?: string | null | undefined, profileBanner?: string | null | undefined, bio?: string | null | undefined, website?: string | null | undefined } } | null | undefined };
+export type FindUserQuery = { __typename?: 'Query', findUser?: { __typename?: 'User', id: number, username: string, firstName: string, lastName: string, email: string, birthDate: string, gender: string, emailVerified: boolean, profile?: { __typename?: 'Profile', profilePicture?: string | null | undefined, profileBanner?: string | null | undefined, bio?: string | null | undefined, website?: string | null | undefined } | null | undefined } | null | undefined };
 
 export type LoginMutationVariables = Exact<{
   input: Scalars['String'];
@@ -167,7 +167,7 @@ export type LoginMutationVariables = Exact<{
 }>;
 
 
-export type LoginMutation = { __typename?: 'Mutation', login?: { __typename?: 'UserResponse', accessToken?: string | null | undefined, status?: string | null | undefined, user?: { __typename?: 'User', id: number, username: string, firstName: string, lastName: string, email: string, birthDate: string, gender: string, emailVerified: boolean, profile: { __typename?: 'Profile', profilePicture?: string | null | undefined, profileBanner?: string | null | undefined, bio?: string | null | undefined, website?: string | null | undefined }, sessions?: Array<{ __typename?: 'Session', id: number, sessionId: string, clientOS: string, clientName: string, deviceLocation: string, creationDate: string }> | null | undefined } | null | undefined, errors?: Array<{ __typename?: 'FieldError', field?: string | null | undefined, message: string }> | null | undefined } | null | undefined };
+export type LoginMutation = { __typename?: 'Mutation', login?: { __typename?: 'UserResponse', accessToken?: string | null | undefined, status?: string | null | undefined, user?: { __typename?: 'User', id: number, username: string, firstName: string, lastName: string, email: string, birthDate: string, gender: string, emailVerified: boolean, profile?: { __typename?: 'Profile', profilePicture?: string | null | undefined, profileBanner?: string | null | undefined, bio?: string | null | undefined, website?: string | null | undefined } | null | undefined, sessions?: Array<{ __typename?: 'Session', id: number, sessionId: string, clientOS: string, clientName: string, deviceLocation: string, creationDate: string }> | null | undefined } | null | undefined, errors?: Array<{ __typename?: 'FieldError', field?: string | null | undefined, message: string }> | null | undefined } | null | undefined };
 
 export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
 
@@ -177,7 +177,7 @@ export type LogoutMutation = { __typename?: 'Mutation', logout: boolean };
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', id: number, username: string, firstName: string, lastName: string, email: string, birthDate: string, gender: string, emailVerified: boolean, profile: { __typename?: 'Profile', profilePicture?: string | null | undefined, profileBanner?: string | null | undefined, bio?: string | null | undefined, website?: string | null | undefined }, sessions?: Array<{ __typename?: 'Session', id: number, sessionId: string, clientOS: string, clientName: string, deviceLocation: string, creationDate: string }> | null | undefined } | null | undefined };
+export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', id: number, username: string, firstName: string, lastName: string, email: string, birthDate: string, gender: string, emailVerified: boolean, profile?: { __typename?: 'Profile', profilePicture?: string | null | undefined, profileBanner?: string | null | undefined, bio?: string | null | undefined, website?: string | null | undefined } | null | undefined, sessions?: Array<{ __typename?: 'Session', id: number, sessionId: string, clientOS: string, clientName: string, deviceLocation: string, creationDate: string }> | null | undefined } | null | undefined };
 
 export type NotAuthModifyPasswordMutationVariables = Exact<{
   token: Scalars['String'];
@@ -206,7 +206,7 @@ export type SignupMutationVariables = Exact<{
 }>;
 
 
-export type SignupMutation = { __typename?: 'Mutation', signup?: { __typename?: 'UserResponse', status?: string | null | undefined, user?: { __typename?: 'User', id: number, username: string, email: string, firstName: string, lastName: string, gender: string, birthDate: string, emailVerified: boolean, profile: { __typename?: 'Profile', profilePicture?: string | null | undefined, profileBanner?: string | null | undefined, bio?: string | null | undefined, website?: string | null | undefined } } | null | undefined, errors?: Array<{ __typename?: 'FieldError', field?: string | null | undefined, message: string }> | null | undefined } | null | undefined };
+export type SignupMutation = { __typename?: 'Mutation', signup?: { __typename?: 'UserResponse', status?: string | null | undefined, user?: { __typename?: 'User', id: number, username: string, email: string, firstName: string, lastName: string, gender: string, birthDate: string, emailVerified: boolean, profile?: { __typename?: 'Profile', profilePicture?: string | null | undefined, profileBanner?: string | null | undefined, bio?: string | null | undefined, website?: string | null | undefined } | null | undefined } | null | undefined, errors?: Array<{ __typename?: 'FieldError', field?: string | null | undefined, message: string }> | null | undefined } | null | undefined };
 
 export type VerifyEmailAddressMutationVariables = Exact<{
   token: Scalars['String'];

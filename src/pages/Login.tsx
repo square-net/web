@@ -48,8 +48,6 @@ function Login() {
         })
     }, []);
 
-    console.log(userLocation);
-
     return (
         <>
             <Head
@@ -73,7 +71,13 @@ function Login() {
                                 { setErrors, setStatus }
                             ) => {
                                 const response = await login({
-                                    variables: values,
+                                    variables: {
+                                        input: values.input,
+                                        password: values.password,
+                                        clientOS: osName,
+                                        clientName,
+                                        deviceLocation: userLocation,
+                                    },
                                     update: (store, { data }) => {
                                         if (data) {
                                             store.writeQuery<MeQuery>({
