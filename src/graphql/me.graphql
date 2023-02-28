@@ -1,0 +1,26 @@
+query Me {
+    me {
+        id
+        username
+        firstName
+        lastName
+        email
+        birthDate
+        gender
+        emailVerified
+        profile {
+            profilePicture
+            profileBanner
+            bio
+            website
+        }
+        sessions {
+            id
+            sessionId
+            clientOS
+            clientName
+            deviceLocation
+            creationDate
+        }
+    }
+}

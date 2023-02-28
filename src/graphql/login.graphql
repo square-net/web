@@ -1,0 +1,34 @@
+mutation Login($input: String!, $password: String!, $clientOS: String!, $clientName: String!, $deviceLocation: String!) {
+    login(input: $input, password: $password, clientOS: $clientOS, clientName: $clientName, deviceLocation: $deviceLocation) {
+        user {
+            id
+            username
+            firstName
+            lastName
+            email
+            birthDate
+            gender
+            emailVerified
+            profile {
+                profilePicture
+                profileBanner
+                bio
+                website
+            }
+            sessions {
+                id
+                sessionId
+                clientOS
+                clientName
+                deviceLocation
+                creationDate
+            }
+        }
+        errors {
+            field
+            message
+        }
+        accessToken
+        status
+    }
+}

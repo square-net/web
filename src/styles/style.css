@@ -1,0 +1,63 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+html {
+    font-family: "Inter", sans-serif;
+    font-size: 18px;
+    color: #ffffff;
+    background-color: #151414;
+}
+
+body {
+    overflow: auto;
+}
+
+* {
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+*:focus {
+    outline: none;
+}
+
+a {
+    font-weight: 400;
+    font-size: inherit;
+    color: #039BE5;
+    text-decoration: none;
+}
+
+a:hover, a:active {
+    text-decoration: underline;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea {
+    display: block;
+    background-color: transparent;
+    color: #B5ADAD;
+    padding: 0;
+    width: 100%;
+    border: none;
+}
+
+textarea {
+    resize: none;
+}
+
+input::-ms-reveal {
+    display: none;
+}
+
+input::placeholder {
+    color: #B5ADAD;
+    opacity: 1;
+}
+
+.not-scrolling {
+    overflow: hidden;
+}

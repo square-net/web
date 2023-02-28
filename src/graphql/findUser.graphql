@@ -1,0 +1,18 @@
+query findUser($username: String) {
+    findUser(username: $username) {
+        id
+        username
+        firstName
+        lastName
+        email
+        birthDate
+        gender
+        emailVerified
+        profile {
+            profilePicture
+            profileBanner
+            bio
+            website
+        }
+    }
+}
