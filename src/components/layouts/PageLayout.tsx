@@ -25,6 +25,11 @@ const PageLayoutContainer = styled.div`
         width: auto;
     }
 
+    @media (min-width: 680px) and (min-height: 420px) {
+        grid-template-columns: 96px 460px;
+        grid-template-rows: none;
+    }
+
     @media ${devices.tablet} and (min-height: 420px) {
         grid-template-columns: 108px 620px;
         grid-template-rows: none;
