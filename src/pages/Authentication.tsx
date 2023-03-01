@@ -5,9 +5,15 @@ import styled from "styled-components";
 import { devices } from "../styles/devices";
 import { LinkButton, PageBlock, PageText } from "../styles/global";
 
+const PageWrapper = styled.div`
+    display: grid;
+    justify-items: center;
+    width: 100%;
+`;
+
 const PageContainer = styled.div`
     display: grid;
-    align-items: center;
+    justify-items: center;
 
     @media ${devices.mobileS} {
         grid-template-rows: auto;
@@ -26,9 +32,10 @@ const PageContent = styled.div`
     gap: 48px;
     padding-top: 48px;
     padding-bottom: 48px;
+    min-height: calc(100vh - 80px);
     padding-left: 24px;
     padding-right: 24px;
-    min-height: calc(100vh - 80px);
+    width: 100%;
 
     @media ${devices.mobileS} {
         padding-left: 32px;
@@ -36,28 +43,17 @@ const PageContent = styled.div`
     }
 
     @media ${devices.mobileL} {
-        padding-left: 14%;
-        padding-right: 14%;
+        padding-left: 0;
+        padding-right: 0;
+        width: 360px;
     }
 
     @media ${devices.tablet} {
-        padding-left: 16%;
-        padding-right: 16%;
-    }
-
-    @media ${devices.laptopS} {
-        padding-left: 24%;
-        padding-right: 24%;
+        width: 472px;
     }
 
     @media ${devices.laptopM} {
-        padding-left: 30%;
-        padding-right: 30%;
-    }
-
-    @media ${devices.desktop} {
-        padding-left: 32%;
-        padding-right: 32%;
+        width: 580px;
     }
 `;
 
@@ -127,6 +123,7 @@ const PageFooter = styled.div`
     row-gap: 4px;
     padding-left: 24px;
     padding-right: 24px;
+    width: 100%;
 
     @media ${devices.mobileS} {
         padding-left: 32px;
@@ -134,28 +131,17 @@ const PageFooter = styled.div`
     }
 
     @media ${devices.mobileL} {
-        padding-left: 14%;
-        padding-right: 14%;
+        padding-left: 0;
+        padding-right: 0;
+        width: 360px;
     }
 
     @media ${devices.tablet} {
-        padding-left: 16%;
-        padding-right: 16%;
-    }
-
-    @media ${devices.laptopS} {
-        padding-left: 24%;
-        padding-right: 24%;
+        width: 472px;
     }
 
     @media ${devices.laptopM} {
-        padding-left: 30%;
-        padding-right: 30%;
-    }
-
-    @media ${devices.desktop} {
-        padding-left: 32%;
-        padding-right: 32%;
+        width: 580px;
     }
 `;
 
@@ -171,62 +157,64 @@ function Authentication() {
                 title="Square"
                 description="The everything app."
             />
-            <PageContainer>
-                <PageContent>
-                    <PageBlock>
-                        <Link to="/" title="Square" aria-label="Square">
-                            <Logo type="index-logo" />
-                        </Link>
-                    </PageBlock>
-                    <SiteTitle>The everything app.</SiteTitle>
-                    <PageText>
-                        This is a platform where users can share opinions, photos and money.
-                    </PageText>
-                    <PageFlex>
-                        <AuthLinkButton
-                            to="/login"
-                            title="Log in"
-                            aria-label="Log in"
+            <PageWrapper>
+                <PageContainer>
+                    <PageContent>
+                        <PageBlock>
+                            <Link to="/" title="Square" aria-label="Square">
+                                <Logo type="index-logo" />
+                            </Link>
+                        </PageBlock>
+                        <SiteTitle>The everything app.</SiteTitle>
+                        <PageText>
+                            This is a platform where users can share opinions, photos and money.
+                        </PageText>
+                        <PageFlex>
+                            <AuthLinkButton
+                                to="/login"
+                                title="Log in"
+                                aria-label="Log in"
+                            >
+                                Log in
+                            </AuthLinkButton>
+                            <AuthLinkButton
+                                to="/signup"
+                                title="Sign up"
+                                aria-label="Sign up"
+                            >
+                                Sign up
+                            </AuthLinkButton>
+                        </PageFlex>
+                    </PageContent>
+                </PageContainer>
+                <PageFooter>
+                    <FooterItem>
+                        &copy; {new Date().getFullYear()} Square Network
+                    </FooterItem>
+                    <FooterItem>
+                        <a
+                            href="https://blog.projectsquare.online"
+                            target="_blank"
+                            title="Square Blog"
+                            rel="noreferrer"
+                            aria-label="Square Blog"
                         >
-                            Log in
-                        </AuthLinkButton>
-                        <AuthLinkButton
-                            to="/signup"
-                            title="Sign up"
-                            aria-label="Sign up"
+                            Blog
+                        </a>
+                    </FooterItem>
+                    <FooterItem>
+                        <a
+                            href="https://twitter.com/SquareNetworkEU"
+                            target="_blank"
+                            title="Square official Twitter account"
+                            rel="noreferrer"
+                            aria-label="Square official Twitter account"
                         >
-                            Sign up
-                        </AuthLinkButton>
-                    </PageFlex>
-                </PageContent>
-            </PageContainer>
-            <PageFooter>
-                <FooterItem>
-                    &copy; {new Date().getFullYear()} Square Network
-                </FooterItem>
-                <FooterItem>
-                    <a
-                        href="https://blog.projectsquare.online"
-                        target="_blank"
-                        title="Square Blog"
-                        rel="noreferrer"
-                        aria-label="Square Blog"
-                    >
-                        Blog
-                    </a>
-                </FooterItem>
-                <FooterItem>
-                    <a
-                        href="https://twitter.com/SquareNetworkEU"
-                        target="_blank"
-                        title="Square official Twitter account"
-                        rel="noreferrer"
-                        aria-label="Square official Twitter account"
-                    >
-                        Twitter
-                    </a>
-                </FooterItem>
-            </PageFooter>
+                            Twitter
+                        </a>
+                    </FooterItem>
+                </PageFooter>
+            </PageWrapper>
         </>
     );
 }

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Head from "../components/Head";
+import PageLayout from "../components/layouts/PageLayout";
 import { useMeQuery } from "../generated/graphql";
 
 function HomePage() {
@@ -22,14 +23,18 @@ function HomePage() {
                 title="Home | Square"
                 description="Do everything on this app."
             />
-            <>
-                Welcome, {data?.me?.firstName} <br />
-                {data?.me?.sessions?.map((session, i) => (
-                    <div key={session.id}>
-                        {i}. {session.sessionId} {session.clientOS} {session.clientName} {session.deviceLocation} {session.creationDate} {sessionId === session.sessionId && "Active session"}
-                    </div>
-                ))}
-            </>
+            <PageLayout 
+                children={
+                    <>
+                        Welcome, {data?.me?.firstName} <br />
+                        {data?.me?.sessions?.map((session, i) => (
+                            <div key={session.id}>
+                                {i}. {session.sessionId} {session.clientOS} {session.clientName} {session.deviceLocation} {session.creationDate} {sessionId === session.sessionId && "Active session"}
+                            </div>
+                        ))}
+                    </>
+                }
+            />
         </>
     );
 }
