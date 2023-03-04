@@ -167,7 +167,7 @@ function Authentication() {
                         </PageBlock>
                         <SiteTitle>The everything app.</SiteTitle>
                         <PageText>
-                            This is a platform where users can share opinions, photos and money.
+                            Find out what’s happening in the world in real time, chat and make video calls with whoever you want. Send and receive money.
                         </PageText>
                         <PageFlex>
                             <AuthLinkButton
@@ -190,17 +190,6 @@ function Authentication() {
                 <PageFooter>
                     <FooterItem>
                         &copy; {new Date().getFullYear()} Square Network
-                    </FooterItem>
-                    <FooterItem>
-                        <a
-                            href="https://blog.projectsquare.online"
-                            target="_blank"
-                            title="Square Blog"
-                            rel="noreferrer"
-                            aria-label="Square Blog"
-                        >
-                            Blog
-                        </a>
                     </FooterItem>
                     <FooterItem>
                         <a
