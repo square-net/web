@@ -22,5 +22,18 @@ query Me {
             deviceLocation
             creationDate
         }
+        posts {
+            id
+            postId
+            authorId
+            type
+            content
+            createdAt
+            updatedAt
+            media {
+                images
+                videos
+            }
+        }
     }
 }

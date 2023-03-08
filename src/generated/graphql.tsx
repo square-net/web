@@ -23,8 +23,16 @@ export type FieldError = {
   message: Scalars['String'];
 };
 
+export type Media = {
+  __typename?: 'Media';
+  images?: Maybe<Array<Scalars['String']>>;
+  videos?: Maybe<Array<Scalars['String']>>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
+  createPost: PostResponse;
+  deletePost: Scalars['Boolean'];
   editProfile: UserResponse;
   login?: Maybe<UserResponse>;
   logout: Scalars['Boolean'];
@@ -32,7 +40,19 @@ export type Mutation = {
   revokeRefreshTokensForUser: Scalars['Boolean'];
   sendRecoveryEmail: UserResponse;
   signup?: Maybe<UserResponse>;
+  updatePost: PostResponse;
   verifyEmailAddress: UserResponse;
+};
+
+
+export type MutationCreatePostArgs = {
+  content: Scalars['String'];
+  type: Scalars['String'];
+};
+
+
+export type MutationDeletePostArgs = {
+  postId: Scalars['String'];
 };
 
 
@@ -83,8 +103,35 @@ export type MutationSignupArgs = {
 };
 
 
+export type MutationUpdatePostArgs = {
+  content: Scalars['String'];
+  postId: Scalars['String'];
+  type: Scalars['String'];
+};
+
+
 export type MutationVerifyEmailAddressArgs = {
   token: Scalars['String'];
+};
+
+export type Post = {
+  __typename?: 'Post';
+  author: User;
+  authorId: Scalars['Float'];
+  content: Scalars['String'];
+  createdAt: Scalars['String'];
+  id: Scalars['Int'];
+  media?: Maybe<Media>;
+  postId: Scalars['String'];
+  type: Scalars['String'];
+  updatedAt: Scalars['String'];
+};
+
+export type PostResponse = {
+  __typename?: 'PostResponse';
+  errors?: Maybe<Array<FieldError>>;
+  post?: Maybe<Post>;
+  status?: Maybe<Scalars['String']>;
 };
 
 export type Profile = {
@@ -97,8 +144,15 @@ export type Profile = {
 
 export type Query = {
   __typename?: 'Query';
+  findPost?: Maybe<Post>;
   findUser?: Maybe<User>;
   me?: Maybe<User>;
+  postFeed: Array<Post>;
+};
+
+
+export type QueryFindPostArgs = {
+  postId?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -126,6 +180,7 @@ export type User = {
   gender: Scalars['String'];
   id: Scalars['Int'];
   lastName: Scalars['String'];
+  posts?: Maybe<Array<Post>>;
   profile?: Maybe<Profile>;
   sessions?: Maybe<Array<Session>>;
   username: Scalars['String'];
@@ -156,7 +211,7 @@ export type FindUserQueryVariables = Exact<{
 }>;
 
 
-export type FindUserQuery = { __typename?: 'Query', findUser?: { __typename?: 'User', id: number, username: string, firstName: string, lastName: string, email: string, birthDate: string, gender: string, emailVerified: boolean, profile?: { __typename?: 'Profile', profilePicture?: string | null | undefined, profileBanner?: string | null | undefined, bio?: string | null | undefined, website?: string | null | undefined } | null | undefined } | null | undefined };
+export type FindUserQuery = { __typename?: 'Query', findUser?: { __typename?: 'User', id: number, username: string, firstName: string, lastName: string, email: string, birthDate: string, gender: string, emailVerified: boolean, profile?: { __typename?: 'Profile', profilePicture?: string | null | undefined, profileBanner?: string | null | undefined, bio?: string | null | undefined, website?: string | null | undefined } | null | undefined, posts?: Array<{ __typename?: 'Post', id: number, postId: string, authorId: number, type: string, content: string, createdAt: string, updatedAt: string, media?: { __typename?: 'Media', images?: Array<string> | null | undefined, videos?: Array<string> | null | undefined } | null | undefined }> | null | undefined } | null | undefined };
 
 export type LoginMutationVariables = Exact<{
   input: Scalars['String'];
@@ -177,7 +232,7 @@ export type LogoutMutation = { __typename?: 'Mutation', logout: boolean };
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', id: number, username: string, firstName: string, lastName: string, email: string, birthDate: string, gender: string, emailVerified: boolean, profile?: { __typename?: 'Profile', profilePicture?: string | null | undefined, profileBanner?: string | null | undefined, bio?: string | null | undefined, website?: string | null | undefined } | null | undefined, sessions?: Array<{ __typename?: 'Session', id: number, sessionId: string, clientOS: string, clientName: string, deviceLocation: string, creationDate: string }> | null | undefined } | null | undefined };
+export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', id: number, username: string, firstName: string, lastName: string, email: string, birthDate: string, gender: string, emailVerified: boolean, profile?: { __typename?: 'Profile', profilePicture?: string | null | undefined, profileBanner?: string | null | undefined, bio?: string | null | undefined, website?: string | null | undefined } | null | undefined, sessions?: Array<{ __typename?: 'Session', id: number, sessionId: string, clientOS: string, clientName: string, deviceLocation: string, creationDate: string }> | null | undefined, posts?: Array<{ __typename?: 'Post', id: number, postId: string, authorId: number, type: string, content: string, createdAt: string, updatedAt: string, media?: { __typename?: 'Media', images?: Array<string> | null | undefined, videos?: Array<string> | null | undefined } | null | undefined }> | null | undefined } | null | undefined };
 
 export type NotAuthModifyPasswordMutationVariables = Exact<{
   token: Scalars['String'];
@@ -297,6 +352,19 @@ export const FindUserDocument = gql`
       profileBanner
       bio
       website
+    }
+    posts {
+      id
+      postId
+      authorId
+      type
+      content
+      createdAt
+      updatedAt
+      media {
+        images
+        videos
+      }
     }
   }
 }
@@ -455,6 +523,19 @@ export const MeDocument = gql`
       clientName
       deviceLocation
       creationDate
+    }
+    posts {
+      id
+      postId
+      authorId
+      type
+      content
+      createdAt
+      updatedAt
+      media {
+        images
+        videos
+      }
     }
   }
 }

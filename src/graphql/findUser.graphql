@@ -14,5 +14,18 @@ query findUser($username: String) {
             bio
             website
         }
+        posts {
+            id
+            postId
+            authorId
+            type
+            content
+            createdAt
+            updatedAt
+            media {
+                images
+                videos
+            }
+        }
     }
 }
