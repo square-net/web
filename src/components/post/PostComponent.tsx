@@ -1,11 +1,12 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useState } from "react";
 import styled from "styled-components";
 import profilePicture from "../../images/profile-picture.svg";
 import { PageText } from "../../styles/global";
 import { Link, useNavigate } from "react-router-dom";
-import More from "../icons/More";
 import { devices } from "../../styles/devices";
 import { processDate } from "../../utils/processDate";
+import { PostOptions } from "./PostOptions";
+import { useMeQuery } from "../../generated/graphql";
 
 interface PostComponentProps {
     isPostFeed: boolean;
@@ -18,7 +19,6 @@ const PostContainer = styled.div`
     border-radius: 0px;
     background-color: #383535;
     cursor: pointer;
-    z-index: 0;
     transition: background-color ease 0.2s;
 
     @media ${devices.mobileL} and (max-height: 480px) {
@@ -151,18 +151,19 @@ const PostRightContainer = styled.div`
     gap: 12px;
 `;
 
-const PostOptionsButton = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
+const OptionButton = styled.div`
+    display: block;
+    background-color: transparent;
+    color: #ffffff;
+    padding: 12px 16px;
+    font-weight: 700;
     cursor: pointer;
-    padding: 6px;
-    border-radius: 9999px;
+    width: 100%;
     background-color: transparent;
     transition: background-color ease 0.2s;
 
     &:hover, &:focus {
-        background-color: rgba(21, 20, 20, 0.6);
+        background-color: rgba(56, 53, 53, 0.6);
     }
 `;
 
@@ -173,6 +174,13 @@ const PostComponent: FunctionComponent<PostComponentProps> = ({
 }) => {
     const navigate = useNavigate();
     let date = processDate(post.updatedAt);
+    const [activeOptionsMenu, setActiveOptionsMenu] = useState<number | null>(null);
+
+    const handleOptionsMenuClick = (index: number) => {
+        setActiveOptionsMenu(activeOptionsMenu === index ? null : index);
+    };
+
+    const { data } = useMeQuery({ fetchPolicy: "network-only" });
 
     return (
         <PostContainer
@@ -250,17 +258,42 @@ const PostComponent: FunctionComponent<PostComponentProps> = ({
                         <PostDate>
                             {date}
                         </PostDate>
-                        <PostOptionsButton
-                            role="button"
-                            title="Options"
-                            aria-label="Options"
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                console.log("Options");
-                            }}
-                        >
-                            <More />
-                        </PostOptionsButton>
+                        <PostOptions
+                            key={post.id}
+                            title="Post options"
+                            isOpen={activeOptionsMenu === post.id}
+                            toggleOptions={() => handleOptionsMenuClick(post.id)}
+                            children={
+                                <>
+                                    {post.authorId === data?.me?.id && (
+                                        <>
+                                            <OptionButton
+                                                role="button"
+                                                title="Update post"
+                                                aria-label="Update post"
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    window.alert("Update post");
+                                                }}
+                                            >
+                                                Update post
+                                            </OptionButton>
+                                            <OptionButton
+                                                role="button"
+                                                title="Delete post"
+                                                aria-label="Delete post"
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    window.alert("Delete post");
+                                                }}
+                                            >
+                                                Delete post
+                                            </OptionButton>
+                                        </>
+                                    )}
+                                </>
+                            }
+                        />
                     </PostRightContainer>
                 </PostHeader>
                 <PostContentContainer>
