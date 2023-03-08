@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Head from "../components/Head";
 import PageLayout from "../components/layouts/PageLayout";
 import { useMeQuery } from "../generated/graphql";
+import micro from "@micro-text/text-js";
 
 function HomePage() {
     const { data } = useMeQuery({ fetchPolicy: "network-only" });
