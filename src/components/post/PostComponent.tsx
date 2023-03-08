@@ -151,7 +151,7 @@ const PostRightContainer = styled.div`
     gap: 12px;
 `;
 
-const OptionButton = styled.div`
+const OptionItem = styled.div`
     display: block;
     background-color: transparent;
     color: #ffffff;
@@ -267,8 +267,8 @@ const PostComponent: FunctionComponent<PostComponentProps> = ({
                                 <>
                                     {post.authorId === data?.me?.id && (
                                         <>
-                                            <OptionButton
-                                                role="button"
+                                            <OptionItem
+                                                role="menuitem"
                                                 title="Update post"
                                                 aria-label="Update post"
                                                 onClick={(e) => {
@@ -277,9 +277,9 @@ const PostComponent: FunctionComponent<PostComponentProps> = ({
                                                 }}
                                             >
                                                 Update post
-                                            </OptionButton>
-                                            <OptionButton
-                                                role="button"
+                                            </OptionItem>
+                                            <OptionItem
+                                                role="menuitem"
                                                 title="Delete post"
                                                 aria-label="Delete post"
                                                 onClick={(e) => {
@@ -288,7 +288,7 @@ const PostComponent: FunctionComponent<PostComponentProps> = ({
                                                 }}
                                             >
                                                 Delete post
-                                            </OptionButton>
+                                            </OptionItem>
                                         </>
                                     )}
                                 </>

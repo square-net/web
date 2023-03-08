@@ -147,7 +147,7 @@ export const PostOptions: FunctionComponent<PostOptionsProps> = ({ title, childr
                             toggleOptions();
                         }}
                     />
-                    <OptionsContainer onClick={(e) => e.stopPropagation()}>
+                    <OptionsContainer onClick={(e) => e.stopPropagation()} role="menu">
                         <OptionsTitle>{title}</OptionsTitle> 
                         <OptionsContent>
                             {children}
