@@ -101,6 +101,8 @@ const OptionsContent = styled.div`
     
     @media ${devices.mobileL} {
         width: auto;
+        min-width: 140px;
+        max-width: 384px;
     }
 `;
 
