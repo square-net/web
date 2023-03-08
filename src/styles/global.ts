@@ -226,3 +226,8 @@ export const ControlContainer = styled.div.attrs(
         background-color: #c0c0c0;
     }
 `;
+
+export const NoPostsAlert = styled(PageText)`
+    padding-left: 16px;
+    padding-right: 16px;
+`;

@@ -5,7 +5,7 @@ import { useFindUserQuery } from "../../generated/graphql";
 import ProfileComponent from "./ProfileComponent";
 import styled from "styled-components";
 import { devices } from "../../styles/devices";
-import { FeedLoading, PageText } from "../../styles/global";
+import { FeedLoading, NoPostsAlert } from "../../styles/global";
 import LoadingComponent from "../../components/utils/LoadingComponent";
 import PostComponent from "../../components/post/PostComponent";
 
@@ -29,11 +29,6 @@ const ProfileFeedContainer = styled.div`
         gap: 24px;
         padding-bottom: 24px;
     }
-`;
-
-const NoPostsAlert = styled(PageText)`
-    padding-left: 16px;
-    padding-right: 16px;
 `;
 
 function ProfileIndex() {

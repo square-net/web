@@ -1,0 +1,37 @@
+mutation createPost($type: String!, $content: String!) {
+    createPost(type: $type, content: $content) {
+        post {
+            id
+            postId
+            authorId
+            type
+            content
+            createdAt
+            updatedAt
+            author {
+                username
+                firstName
+                lastName
+                email
+                id
+                birthDate
+                gender
+                emailVerified
+                profile {
+                    profilePicture
+                    profileBanner
+                    bio
+                    website
+                }
+            }
+            media {
+                images
+                videos
+            }
+        }
+        errors {
+            field
+            message
+        }
+    }
+}

@@ -194,6 +194,14 @@ export type UserResponse = {
   user?: Maybe<User>;
 };
 
+export type CreatePostMutationVariables = Exact<{
+  type: Scalars['String'];
+  content: Scalars['String'];
+}>;
+
+
+export type CreatePostMutation = { __typename?: 'Mutation', createPost: { __typename?: 'PostResponse', post?: { __typename?: 'Post', id: number, postId: string, authorId: number, type: string, content: string, createdAt: string, updatedAt: string, author: { __typename?: 'User', username: string, firstName: string, lastName: string, email: string, id: number, birthDate: string, gender: string, emailVerified: boolean, profile?: { __typename?: 'Profile', profilePicture?: string | null | undefined, profileBanner?: string | null | undefined, bio?: string | null | undefined, website?: string | null | undefined } | null | undefined }, media?: { __typename?: 'Media', images?: Array<string> | null | undefined, videos?: Array<string> | null | undefined } | null | undefined } | null | undefined, errors?: Array<{ __typename?: 'FieldError', field?: string | null | undefined, message: string }> | null | undefined } };
+
 export type EditProfileMutationVariables = Exact<{
   website: Scalars['String'];
   bio: Scalars['String'];
@@ -243,6 +251,11 @@ export type NotAuthModifyPasswordMutationVariables = Exact<{
 
 export type NotAuthModifyPasswordMutation = { __typename?: 'Mutation', notAuthModifyPassword: { __typename?: 'UserResponse', status?: string | null | undefined, errors?: Array<{ __typename?: 'FieldError', field?: string | null | undefined, message: string }> | null | undefined } };
 
+export type PostFeedQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type PostFeedQuery = { __typename?: 'Query', postFeed: Array<{ __typename?: 'Post', id: number, postId: string, authorId: number, type: string, content: string, createdAt: string, updatedAt: string, author: { __typename?: 'User', username: string, firstName: string, lastName: string, email: string, id: number, birthDate: string, gender: string, emailVerified: boolean, profile?: { __typename?: 'Profile', profilePicture?: string | null | undefined, profileBanner?: string | null | undefined, bio?: string | null | undefined, website?: string | null | undefined } | null | undefined }, media?: { __typename?: 'Media', images?: Array<string> | null | undefined, videos?: Array<string> | null | undefined } | null | undefined }> };
+
 export type SendRecoveryEmailMutationVariables = Exact<{
   email: Scalars['String'];
 }>;
@@ -271,6 +284,72 @@ export type VerifyEmailAddressMutationVariables = Exact<{
 export type VerifyEmailAddressMutation = { __typename?: 'Mutation', verifyEmailAddress: { __typename?: 'UserResponse', status?: string | null | undefined } };
 
 
+export const CreatePostDocument = gql`
+    mutation createPost($type: String!, $content: String!) {
+  createPost(type: $type, content: $content) {
+    post {
+      id
+      postId
+      authorId
+      type
+      content
+      createdAt
+      updatedAt
+      author {
+        username
+        firstName
+        lastName
+        email
+        id
+        birthDate
+        gender
+        emailVerified
+        profile {
+          profilePicture
+          profileBanner
+          bio
+          website
+        }
+      }
+      media {
+        images
+        videos
+      }
+    }
+    errors {
+      field
+      message
+    }
+  }
+}
+    `;
+export type CreatePostMutationFn = Apollo.MutationFunction<CreatePostMutation, CreatePostMutationVariables>;
+
+/**
+ * __useCreatePostMutation__
+ *
+ * To run a mutation, you first call `useCreatePostMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreatePostMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createPostMutation, { data, loading, error }] = useCreatePostMutation({
+ *   variables: {
+ *      type: // value for 'type'
+ *      content: // value for 'content'
+ *   },
+ * });
+ */
+export function useCreatePostMutation(baseOptions?: Apollo.MutationHookOptions<CreatePostMutation, CreatePostMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreatePostMutation, CreatePostMutationVariables>(CreatePostDocument, options);
+      }
+export type CreatePostMutationHookResult = ReturnType<typeof useCreatePostMutation>;
+export type CreatePostMutationResult = Apollo.MutationResult<CreatePostMutation>;
+export type CreatePostMutationOptions = Apollo.BaseMutationOptions<CreatePostMutation, CreatePostMutationVariables>;
 export const EditProfileDocument = gql`
     mutation EditProfile($website: String!, $bio: String!, $profileBanner: String!, $profilePicture: String!, $lastName: String!, $firstName: String!) {
   editProfile(
@@ -610,6 +689,66 @@ export function useNotAuthModifyPasswordMutation(baseOptions?: Apollo.MutationHo
 export type NotAuthModifyPasswordMutationHookResult = ReturnType<typeof useNotAuthModifyPasswordMutation>;
 export type NotAuthModifyPasswordMutationResult = Apollo.MutationResult<NotAuthModifyPasswordMutation>;
 export type NotAuthModifyPasswordMutationOptions = Apollo.BaseMutationOptions<NotAuthModifyPasswordMutation, NotAuthModifyPasswordMutationVariables>;
+export const PostFeedDocument = gql`
+    query postFeed {
+  postFeed {
+    id
+    postId
+    authorId
+    type
+    content
+    createdAt
+    updatedAt
+    author {
+      username
+      firstName
+      lastName
+      email
+      id
+      birthDate
+      gender
+      emailVerified
+      profile {
+        profilePicture
+        profileBanner
+        bio
+        website
+      }
+    }
+    media {
+      images
+      videos
+    }
+  }
+}
+    `;
+
+/**
+ * __usePostFeedQuery__
+ *
+ * To run a query within a React component, call `usePostFeedQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePostFeedQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePostFeedQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function usePostFeedQuery(baseOptions?: Apollo.QueryHookOptions<PostFeedQuery, PostFeedQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<PostFeedQuery, PostFeedQueryVariables>(PostFeedDocument, options);
+      }
+export function usePostFeedLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PostFeedQuery, PostFeedQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<PostFeedQuery, PostFeedQueryVariables>(PostFeedDocument, options);
+        }
+export type PostFeedQueryHookResult = ReturnType<typeof usePostFeedQuery>;
+export type PostFeedLazyQueryHookResult = ReturnType<typeof usePostFeedLazyQuery>;
+export type PostFeedQueryResult = Apollo.QueryResult<PostFeedQuery, PostFeedQueryVariables>;
 export const SendRecoveryEmailDocument = gql`
     mutation sendRecoveryEmail($email: String!) {
   sendRecoveryEmail(email: $email) {
