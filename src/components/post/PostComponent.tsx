@@ -29,6 +29,10 @@ const PostContainer = styled.div`
         border-radius: 6px 0px 0px 6px;
     }
 
+    @media (min-width: 600px) and (min-height: 480px) {
+        border-radius: 6px;
+    }
+
     @media ${devices.tablet} {
         border-radius: 6px;
     }
