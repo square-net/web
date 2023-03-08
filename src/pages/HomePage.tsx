@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Head from "../components/Head";
 import PageLayout from "../components/layouts/PageLayout";
 import { useMeQuery } from "../generated/graphql";
-import micro from "@micro-text/text-js";
+import PageContentLayout from "../components/layouts/sublayouts/PageContentLayout";
 
 function HomePage() {
     const { data } = useMeQuery({ fetchPolicy: "network-only" });
@@ -26,14 +26,16 @@ function HomePage() {
             />
             <PageLayout 
                 children={
-                    <>
-                        Welcome, {data?.me?.firstName} <br />
-                        {data?.me?.sessions?.map((session, i) => (
-                            <div key={session.id}>
-                                {i}. {session.sessionId} {session.clientOS} {session.clientName} {session.deviceLocation} {session.creationDate} {sessionId === session.sessionId && "Active session"}
-                            </div>
-                        ))}
-                    </>
+                    <PageContentLayout type="main" title="Home" content={
+                        <>
+                            Welcome, {data?.me?.firstName} <br />
+                            {data?.me?.sessions?.map((session, i) => (
+                                <div key={session.id}>
+                                    {i}. {session.sessionId} {session.clientOS} {session.clientName} {session.deviceLocation} {session.creationDate} {sessionId === session.sessionId && "Active session"}
+                                </div>
+                            ))}
+                        </>
+                    } />
                 }
             />
         </>

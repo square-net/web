@@ -56,7 +56,8 @@ const PageLayoutContainer = styled.div`
 `;
 
 const PageContentLayoutContainer = styled.div`
-    display: block;
+    display: flex;
+    justify-content: center;
     width: 100%;
 `;
 
