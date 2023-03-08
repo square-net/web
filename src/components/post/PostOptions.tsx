@@ -72,6 +72,7 @@ const OptionsContainer = styled.div.attrs(
         max-height: auto;
         overflow: hidden;
         max-width: 384px;
+        min-width: 140px;
         transform: translateY(-36px) translateX(calc(36px - 100%));
     }
 `;
