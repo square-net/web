@@ -33,6 +33,27 @@ mutation EditProfile(
                 bio
                 website
             }
+            sessions {
+                id
+                sessionId
+                clientOS
+                clientName
+                deviceLocation
+                creationDate
+            }
+            posts {
+                id
+                postId
+                authorId
+                type
+                content
+                createdAt
+                updatedAt
+                media {
+                    images
+                    videos
+                }
+            }
         }
         status
     }

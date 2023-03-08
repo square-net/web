@@ -219,7 +219,7 @@ export type EditProfileMutationVariables = Exact<{
 }>;
 
 
-export type EditProfileMutation = { __typename?: 'Mutation', editProfile: { __typename?: 'UserResponse', status?: string | null | undefined, errors?: Array<{ __typename?: 'FieldError', field?: string | null | undefined, message: string }> | null | undefined, user?: { __typename?: 'User', id: number, firstName: string, lastName: string, username: string, email: string, gender: string, birthDate: string, emailVerified: boolean, profile?: { __typename?: 'Profile', profilePicture?: string | null | undefined, profileBanner?: string | null | undefined, bio?: string | null | undefined, website?: string | null | undefined } | null | undefined } | null | undefined } };
+export type EditProfileMutation = { __typename?: 'Mutation', editProfile: { __typename?: 'UserResponse', status?: string | null | undefined, errors?: Array<{ __typename?: 'FieldError', field?: string | null | undefined, message: string }> | null | undefined, user?: { __typename?: 'User', id: number, firstName: string, lastName: string, username: string, email: string, gender: string, birthDate: string, emailVerified: boolean, profile?: { __typename?: 'Profile', profilePicture?: string | null | undefined, profileBanner?: string | null | undefined, bio?: string | null | undefined, website?: string | null | undefined } | null | undefined, sessions?: Array<{ __typename?: 'Session', id: number, sessionId: string, clientOS: string, clientName: string, deviceLocation: string, creationDate: string }> | null | undefined, posts?: Array<{ __typename?: 'Post', id: number, postId: string, authorId: number, type: string, content: string, createdAt: string, updatedAt: string, media?: { __typename?: 'Media', images?: Array<string> | null | undefined, videos?: Array<string> | null | undefined } | null | undefined }> | null | undefined } | null | undefined } };
 
 export type FindPostQueryVariables = Exact<{
   postId?: InputMaybe<Scalars['String']>;
@@ -432,6 +432,27 @@ export const EditProfileDocument = gql`
         profileBanner
         bio
         website
+      }
+      sessions {
+        id
+        sessionId
+        clientOS
+        clientName
+        deviceLocation
+        creationDate
+      }
+      posts {
+        id
+        postId
+        authorId
+        type
+        content
+        createdAt
+        updatedAt
+        media {
+          images
+          videos
+        }
       }
     }
     status
