@@ -28,24 +28,29 @@ const PageLayoutContainer = styled.div`
     @media (min-width: 680px) and (min-height: 420px) {
         grid-template-columns: 96px 460px;
         grid-template-rows: none;
+        width: auto;
     }
 
     @media ${devices.tablet} and (min-height: 420px) {
         grid-template-columns: 108px 620px;
         grid-template-rows: none;
+        width: auto;
     }
 
     @media ${devices.laptopS} and (min-height: 420px) {
         grid-template-columns: 108px 730px;
+        width: auto;
     }
 
     @media ${devices.laptopM} and (min-height: 420px) {
         grid-template-columns: 108px 836px;
+        width: auto;
     }
 
     @media ${devices.laptopL} {
         grid-template-columns: 320px 900px;
         grid-template-rows: none;
+        width: auto;
     }
 `;
 
