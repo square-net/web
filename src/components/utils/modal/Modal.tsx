@@ -33,18 +33,38 @@ const ModalOverlay = styled.div`
     background-color: rgba(56, 53, 53, 0.6);
 `;
 
+const ModalOuterContainer = styled.div`
+    display: flex;
+    position: relative;
+    justify-content: center;
+    z-index: 10000;
+    overflow: auto;
+    background-color: #151414;
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0px;
+
+    @media ${devices.tablet} and (min-height: 480px) {
+        border-radius: 16px;
+        width: 480px;
+        height: auto;
+    }
+
+    @media ${devices.laptopL} {
+        border-radius: 16px;
+        width: 540px;
+        height: auto;
+    }
+`;
+
 const ModalContainer = styled.div`
     display: grid;
     grid-template-rows: 60px auto;
     grid-template-columns: auto;
     position: relative;
     z-index: 10000;
-    overflow: auto;
     background-color: #151414;
     width: 100%;
-    height: 100vh;
-    border-radius: 0px;
-    padding: 0;
 
     @media ${devices.mobileL} {
         width: 380px;
@@ -59,17 +79,11 @@ const ModalContainer = styled.div`
     }
 
     @media ${devices.tablet} and (min-height: 480px) {
-        padding: 0;
-        border-radius: 16px;
-        width: 480px;
-        height: auto;
+        width: 100%;
     }
 
     @media ${devices.laptopL} {
-        padding: 0;
-        border-radius: 16px;
-        width: 540px;
-        height: auto;
+        width: 100%;
     }
 `;
 
@@ -143,26 +157,28 @@ const Modal: FunctionComponent<ModalProps> = ({ modalContent, headerText }) => {
                     }
                 }}
             ></ModalOverlay>
-            <ModalContainer>
-                <ModalHeader>
-                    <CloseModal
-                        role="button"
-                        title="Close modal"
-                        aria-label="Close modal"
-                        onClick={() => {
-                            if (navigationType === "POP") {
-                                navigate("/home");
-                            } else {
-                                navigate(-1);
-                            }
-                        }}
-                    >
-                        <Back />
-                    </CloseModal>
-                    <ModalTitle>{headerText}</ModalTitle>
-                </ModalHeader>
-                <ModalContent>{modalContent}</ModalContent>
-            </ModalContainer>
+            <ModalOuterContainer>
+                <ModalContainer>
+                    <ModalHeader>
+                        <CloseModal
+                            role="button"
+                            title="Close modal"
+                            aria-label="Close modal"
+                            onClick={() => {
+                                if (navigationType === "POP") {
+                                    navigate("/home");
+                                } else {
+                                    navigate(-1);
+                                }
+                            }}
+                        >
+                            <Back />
+                        </CloseModal>
+                        <ModalTitle>{headerText}</ModalTitle>
+                    </ModalHeader>
+                    <ModalContent>{modalContent}</ModalContent>
+                </ModalContainer>
+            </ModalOuterContainer>
         </ModalWrapper>
     );
 };
