@@ -41,50 +41,35 @@ const ModalContainer = styled.div`
     z-index: 10000;
     overflow: auto;
     background-color: #151414;
-    min-width: 100vw;
     width: 100%;
-    max-width: auto;
     height: 100vh;
     border-radius: 0px;
     padding: 0;
 
     @media ${devices.mobileL} {
-        width: 100%;
-        padding-left: 7vw;
-        padding-right: 7vw;
+        width: 380px;
     }
 
-    @media ${devices.tablet} and (max-height: 420px) {
-        width: 100%;
-        padding-left: 8vw;
-        padding-right: 8vw;
+    @media (min-width: 600px) and (max-height: 480px) {
+        width: 500px;
     }
 
-    @media ${devices.tablet} and (min-height: 420px) {
+    @media ${devices.tablet} and (max-height: 480px) {
+        width: 620px;
+    }
+
+    @media ${devices.tablet} and (min-height: 480px) {
         padding: 0;
         border-radius: 16px;
-        min-width: 45vw;
-        width: auto;
-        max-width: 55vw;
-        height: auto;
-    }
-
-    @media ${devices.laptopS} {
-        padding: 0;
-        min-width: 40vw;
-        max-width: 50vw;
-        border-radius: 16px;
-        width: auto;
+        width: 480px;
         height: auto;
     }
 
     @media ${devices.laptopL} {
         padding: 0;
         border-radius: 16px;
-        width: auto;
+        width: 540px;
         height: auto;
-        min-width: 35vw;
-        max-width: 45vw;
     }
 `;
 
@@ -134,7 +119,7 @@ const ModalContent = styled.div`
     width: 100%;
     max-height: calc(100vh - 60px);
 
-    @media ${devices.tablet} and (min-height: 420px) {
+    @media ${devices.tablet} and (min-height: 480px) {
         max-height: 65vh;
     }
 `;

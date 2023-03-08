@@ -23,7 +23,7 @@ const PageLayoutContainer = styled.div`
     @media ${devices.mobileL} and (min-height: 480px) {
         grid-template-columns: 96px auto;
         grid-template-rows: none;
-        width: auto;
+        width: 100%;
     }
 
     @media (min-width: 600px) and (min-height: 480px) {
