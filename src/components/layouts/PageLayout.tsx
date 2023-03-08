@@ -2,6 +2,7 @@ import { FunctionComponent } from "react";
 import styled from "styled-components";
 import { devices } from "../../styles/devices";
 import { PageBlock } from "../../styles/global";
+import Nav from "../Nav";
 
 export interface PageLayoutProps {
     children: JSX.Element;
@@ -19,31 +20,31 @@ const PageLayoutContainer = styled.div`
     grid-template-rows: auto;
     width: 100%;
 
-    @media ${devices.mobileL} and (min-height: 420px) {
-        grid-template-columns: 96px 300px;
+    @media ${devices.mobileL} and (min-height: 480px) {
+        grid-template-columns: 96px auto;
         grid-template-rows: none;
         width: auto;
     }
 
-    @media (min-width: 680px) and (min-height: 420px) {
+    @media (min-width: 600px) and (min-height: 480px) {
         grid-template-columns: 96px 460px;
         grid-template-rows: none;
         width: auto;
     }
 
-    @media ${devices.tablet} and (min-height: 420px) {
+    @media ${devices.tablet} and (min-height: 480px) {
         grid-template-columns: 108px 620px;
         grid-template-rows: none;
         width: auto;
     }
 
-    @media ${devices.laptopS} and (min-height: 420px) {
-        grid-template-columns: 108px 730px;
+    @media ${devices.laptopS} and (min-height: 480px) {
+        grid-template-columns: 108px 760px;
         width: auto;
     }
 
-    @media ${devices.laptopM} and (min-height: 420px) {
-        grid-template-columns: 108px 836px;
+    @media ${devices.laptopM} and (min-height: 480px) {
+        grid-template-columns: 108px 900px;
         width: auto;
     }
 
@@ -63,7 +64,7 @@ const PageLayout: FunctionComponent<PageLayoutProps> = ({ children }) => {
     return (
         <PageLayoutWrapper>
             <PageLayoutContainer>
-                <div>Nav</div>
+                <Nav />
                 <PageBlock>
                     <PageContentLayoutContainer>
                         {children}
