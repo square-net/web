@@ -202,6 +202,13 @@ export type CreatePostMutationVariables = Exact<{
 
 export type CreatePostMutation = { __typename?: 'Mutation', createPost: { __typename?: 'PostResponse', post?: { __typename?: 'Post', id: number, postId: string, authorId: number, type: string, content: string, createdAt: string, updatedAt: string, author: { __typename?: 'User', username: string, firstName: string, lastName: string, email: string, id: number, birthDate: string, gender: string, emailVerified: boolean, profile?: { __typename?: 'Profile', profilePicture?: string | null | undefined, profileBanner?: string | null | undefined, bio?: string | null | undefined, website?: string | null | undefined } | null | undefined }, media?: { __typename?: 'Media', images?: Array<string> | null | undefined, videos?: Array<string> | null | undefined } | null | undefined } | null | undefined, errors?: Array<{ __typename?: 'FieldError', field?: string | null | undefined, message: string }> | null | undefined } };
 
+export type DeletePostMutationVariables = Exact<{
+  postId: Scalars['String'];
+}>;
+
+
+export type DeletePostMutation = { __typename?: 'Mutation', deletePost: boolean };
+
 export type EditProfileMutationVariables = Exact<{
   website: Scalars['String'];
   bio: Scalars['String'];
@@ -213,6 +220,13 @@ export type EditProfileMutationVariables = Exact<{
 
 
 export type EditProfileMutation = { __typename?: 'Mutation', editProfile: { __typename?: 'UserResponse', status?: string | null | undefined, errors?: Array<{ __typename?: 'FieldError', field?: string | null | undefined, message: string }> | null | undefined, user?: { __typename?: 'User', id: number, firstName: string, lastName: string, username: string, email: string, gender: string, birthDate: string, emailVerified: boolean, profile?: { __typename?: 'Profile', profilePicture?: string | null | undefined, profileBanner?: string | null | undefined, bio?: string | null | undefined, website?: string | null | undefined } | null | undefined } | null | undefined } };
+
+export type FindPostQueryVariables = Exact<{
+  postId?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type FindPostQuery = { __typename?: 'Query', findPost?: { __typename?: 'Post', id: number, postId: string, authorId: number, type: string, content: string, createdAt: string, updatedAt: string, author: { __typename?: 'User', username: string, firstName: string, lastName: string, email: string, id: number, birthDate: string, gender: string, emailVerified: boolean, profile?: { __typename?: 'Profile', profilePicture?: string | null | undefined, profileBanner?: string | null | undefined, bio?: string | null | undefined, website?: string | null | undefined } | null | undefined }, media?: { __typename?: 'Media', images?: Array<string> | null | undefined, videos?: Array<string> | null | undefined } | null | undefined } | null | undefined };
 
 export type FindUserQueryVariables = Exact<{
   username?: InputMaybe<Scalars['String']>;
@@ -275,6 +289,15 @@ export type SignupMutationVariables = Exact<{
 
 
 export type SignupMutation = { __typename?: 'Mutation', signup?: { __typename?: 'UserResponse', status?: string | null | undefined, user?: { __typename?: 'User', id: number, username: string, email: string, firstName: string, lastName: string, gender: string, birthDate: string, emailVerified: boolean, profile?: { __typename?: 'Profile', profilePicture?: string | null | undefined, profileBanner?: string | null | undefined, bio?: string | null | undefined, website?: string | null | undefined } | null | undefined } | null | undefined, errors?: Array<{ __typename?: 'FieldError', field?: string | null | undefined, message: string }> | null | undefined } | null | undefined };
+
+export type UpdatePostMutationVariables = Exact<{
+  postId: Scalars['String'];
+  type: Scalars['String'];
+  content: Scalars['String'];
+}>;
+
+
+export type UpdatePostMutation = { __typename?: 'Mutation', updatePost: { __typename?: 'PostResponse', post?: { __typename?: 'Post', id: number, postId: string, authorId: number, type: string, content: string, createdAt: string, updatedAt: string, author: { __typename?: 'User', username: string, firstName: string, lastName: string, email: string, id: number, birthDate: string, gender: string, emailVerified: boolean, profile?: { __typename?: 'Profile', profilePicture?: string | null | undefined, profileBanner?: string | null | undefined, bio?: string | null | undefined, website?: string | null | undefined } | null | undefined }, media?: { __typename?: 'Media', images?: Array<string> | null | undefined, videos?: Array<string> | null | undefined } | null | undefined } | null | undefined, errors?: Array<{ __typename?: 'FieldError', field?: string | null | undefined, message: string }> | null | undefined } };
 
 export type VerifyEmailAddressMutationVariables = Exact<{
   token: Scalars['String'];
@@ -350,6 +373,37 @@ export function useCreatePostMutation(baseOptions?: Apollo.MutationHookOptions<C
 export type CreatePostMutationHookResult = ReturnType<typeof useCreatePostMutation>;
 export type CreatePostMutationResult = Apollo.MutationResult<CreatePostMutation>;
 export type CreatePostMutationOptions = Apollo.BaseMutationOptions<CreatePostMutation, CreatePostMutationVariables>;
+export const DeletePostDocument = gql`
+    mutation deletePost($postId: String!) {
+  deletePost(postId: $postId)
+}
+    `;
+export type DeletePostMutationFn = Apollo.MutationFunction<DeletePostMutation, DeletePostMutationVariables>;
+
+/**
+ * __useDeletePostMutation__
+ *
+ * To run a mutation, you first call `useDeletePostMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeletePostMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deletePostMutation, { data, loading, error }] = useDeletePostMutation({
+ *   variables: {
+ *      postId: // value for 'postId'
+ *   },
+ * });
+ */
+export function useDeletePostMutation(baseOptions?: Apollo.MutationHookOptions<DeletePostMutation, DeletePostMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeletePostMutation, DeletePostMutationVariables>(DeletePostDocument, options);
+      }
+export type DeletePostMutationHookResult = ReturnType<typeof useDeletePostMutation>;
+export type DeletePostMutationResult = Apollo.MutationResult<DeletePostMutation>;
+export type DeletePostMutationOptions = Apollo.BaseMutationOptions<DeletePostMutation, DeletePostMutationVariables>;
 export const EditProfileDocument = gql`
     mutation EditProfile($website: String!, $bio: String!, $profileBanner: String!, $profilePicture: String!, $lastName: String!, $firstName: String!) {
   editProfile(
@@ -415,6 +469,67 @@ export function useEditProfileMutation(baseOptions?: Apollo.MutationHookOptions<
 export type EditProfileMutationHookResult = ReturnType<typeof useEditProfileMutation>;
 export type EditProfileMutationResult = Apollo.MutationResult<EditProfileMutation>;
 export type EditProfileMutationOptions = Apollo.BaseMutationOptions<EditProfileMutation, EditProfileMutationVariables>;
+export const FindPostDocument = gql`
+    query findPost($postId: String) {
+  findPost(postId: $postId) {
+    id
+    postId
+    authorId
+    type
+    content
+    createdAt
+    updatedAt
+    author {
+      username
+      firstName
+      lastName
+      email
+      id
+      birthDate
+      gender
+      emailVerified
+      profile {
+        profilePicture
+        profileBanner
+        bio
+        website
+      }
+    }
+    media {
+      images
+      videos
+    }
+  }
+}
+    `;
+
+/**
+ * __useFindPostQuery__
+ *
+ * To run a query within a React component, call `useFindPostQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindPostQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindPostQuery({
+ *   variables: {
+ *      postId: // value for 'postId'
+ *   },
+ * });
+ */
+export function useFindPostQuery(baseOptions?: Apollo.QueryHookOptions<FindPostQuery, FindPostQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindPostQuery, FindPostQueryVariables>(FindPostDocument, options);
+      }
+export function useFindPostLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindPostQuery, FindPostQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindPostQuery, FindPostQueryVariables>(FindPostDocument, options);
+        }
+export type FindPostQueryHookResult = ReturnType<typeof useFindPostQuery>;
+export type FindPostLazyQueryHookResult = ReturnType<typeof useFindPostLazyQuery>;
+export type FindPostQueryResult = Apollo.QueryResult<FindPostQuery, FindPostQueryVariables>;
 export const FindUserDocument = gql`
     query findUser($username: String) {
   findUser(username: $username) {
@@ -853,6 +968,73 @@ export function useSignupMutation(baseOptions?: Apollo.MutationHookOptions<Signu
 export type SignupMutationHookResult = ReturnType<typeof useSignupMutation>;
 export type SignupMutationResult = Apollo.MutationResult<SignupMutation>;
 export type SignupMutationOptions = Apollo.BaseMutationOptions<SignupMutation, SignupMutationVariables>;
+export const UpdatePostDocument = gql`
+    mutation updatePost($postId: String!, $type: String!, $content: String!) {
+  updatePost(postId: $postId, type: $type, content: $content) {
+    post {
+      id
+      postId
+      authorId
+      type
+      content
+      createdAt
+      updatedAt
+      author {
+        username
+        firstName
+        lastName
+        email
+        id
+        birthDate
+        gender
+        emailVerified
+        profile {
+          profilePicture
+          profileBanner
+          bio
+          website
+        }
+      }
+      media {
+        images
+        videos
+      }
+    }
+    errors {
+      field
+      message
+    }
+  }
+}
+    `;
+export type UpdatePostMutationFn = Apollo.MutationFunction<UpdatePostMutation, UpdatePostMutationVariables>;
+
+/**
+ * __useUpdatePostMutation__
+ *
+ * To run a mutation, you first call `useUpdatePostMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdatePostMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updatePostMutation, { data, loading, error }] = useUpdatePostMutation({
+ *   variables: {
+ *      postId: // value for 'postId'
+ *      type: // value for 'type'
+ *      content: // value for 'content'
+ *   },
+ * });
+ */
+export function useUpdatePostMutation(baseOptions?: Apollo.MutationHookOptions<UpdatePostMutation, UpdatePostMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdatePostMutation, UpdatePostMutationVariables>(UpdatePostDocument, options);
+      }
+export type UpdatePostMutationHookResult = ReturnType<typeof useUpdatePostMutation>;
+export type UpdatePostMutationResult = Apollo.MutationResult<UpdatePostMutation>;
+export type UpdatePostMutationOptions = Apollo.BaseMutationOptions<UpdatePostMutation, UpdatePostMutationVariables>;
 export const VerifyEmailAddressDocument = gql`
     mutation verifyEmailAddress($token: String!) {
   verifyEmailAddress(token: $token) {
