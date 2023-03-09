@@ -231,3 +231,19 @@ export const NoPostsAlert = styled(PageText)`
     padding-left: 16px;
     padding-right: 16px;
 `;
+
+export const OptionItem = styled.div`
+    display: block;
+    background-color: transparent;
+    color: #ffffff;
+    padding: 12px 16px;
+    font-weight: 700;
+    cursor: pointer;
+    width: 100%;
+    background-color: transparent;
+    transition: background-color ease 0.2s;
+
+    &:hover, &:focus {
+        background-color: rgba(56, 53, 53, 0.6);
+    }
+`;

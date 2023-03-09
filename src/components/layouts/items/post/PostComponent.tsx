@@ -1,12 +1,13 @@
 import { FunctionComponent, useState } from "react";
 import styled from "styled-components";
-import profilePicture from "../../images/profile-picture.svg";
-import { PageText } from "../../styles/global";
+import profilePicture from "../../../../images/profile-picture.svg";
+import { OptionItem, PageText } from "../../../../styles/global";
 import { Link, useNavigate } from "react-router-dom";
-import { devices } from "../../styles/devices";
-import { processDate } from "../../utils/processDate";
+import { devices } from "../../../../styles/devices";
+import { processDate } from "../../../../utils/processDate";
 import { PostOptions } from "./PostOptions";
-import { useMeQuery } from "../../generated/graphql";
+import { PostFeedDocument, PostFeedQuery, useDeletePostMutation, useMeQuery, usePostFeedQuery } from "../../../../generated/graphql";
+import { ContentState, convertFromRaw } from "draft-js";
 
 interface PostComponentProps {
     isPostFeed: boolean;
@@ -151,22 +152,6 @@ const PostRightContainer = styled.div`
     gap: 12px;
 `;
 
-const OptionItem = styled.div`
-    display: block;
-    background-color: transparent;
-    color: #ffffff;
-    padding: 12px 16px;
-    font-weight: 700;
-    cursor: pointer;
-    width: 100%;
-    background-color: transparent;
-    transition: background-color ease 0.2s;
-
-    &:hover, &:focus {
-        background-color: rgba(56, 53, 53, 0.6);
-    }
-`;
-
 const PostComponent: FunctionComponent<PostComponentProps> = ({
     isPostFeed,
     post,
@@ -182,6 +167,12 @@ const PostComponent: FunctionComponent<PostComponentProps> = ({
 
     const { data } = useMeQuery({ fetchPolicy: "network-only" });
 
+    const [deletePost] = useDeletePostMutation();
+
+    const { data: postFeedData } = usePostFeedQuery({ fetchPolicy: "network-only" });
+    const draftContent: ContentState = convertFromRaw(JSON.parse(post.content));
+    const content = draftContent.getPlainText();
+    
     return (
         <PostContainer
             role="link"
@@ -282,9 +273,32 @@ const PostComponent: FunctionComponent<PostComponentProps> = ({
                                                 role="menuitem"
                                                 title="Delete post"
                                                 aria-label="Delete post"
-                                                onClick={(e) => {
+                                                onClick={async (e) => {
                                                     e.stopPropagation();
-                                                    window.alert("Delete post");
+
+                                                    await deletePost({
+                                                        variables: {
+                                                            postId: post.postId,
+                                                        },
+                                                        update: (store, { data }) => {
+                                                            if (
+                                                                data &&
+                                                                data.deletePost
+                                                            ) {
+                                                                const postsData = postFeedData?.postFeed || [];
+                                                                const selectedPost = postsData.find((item) => item.id === post.id);
+                                                                const index = postsData.indexOf(selectedPost!);
+                                                                postsData.splice(index!, 1);
+                                                                
+                                                                store.writeQuery<PostFeedQuery>({
+                                                                    query: PostFeedDocument,
+                                                                    data: {
+                                                                        postFeed: postsData,
+                                                                    },
+                                                                });
+                                                            }
+                                                        },
+                                                    });
                                                 }}
                                             >
                                                 Delete post
@@ -298,7 +312,7 @@ const PostComponent: FunctionComponent<PostComponentProps> = ({
                 </PostHeader>
                 <PostContentContainer>
                     <PostTextContainer>
-                        {post.content}
+                        {content}
                     </PostTextContainer>
                 </PostContentContainer>
             </PostInnerContainer>

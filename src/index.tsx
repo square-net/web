@@ -16,7 +16,28 @@ import "./styles/index.css";
 import "./styles/style.css";
 import { BrowserRouter } from "react-router-dom";
 
-const cache = new InMemoryCache({});
+const cache = new InMemoryCache({
+    typePolicies: {
+        Query: {
+            fields: {
+                postFeed: {
+                    merge: (_existing = [], incoming) => {
+                        return incoming;
+                    },
+                },
+            },
+        },
+        User: {
+            fields: {
+                posts: {
+                    merge: (_existing = [], incoming) => {
+                        return incoming;
+                    },
+                },
+            },
+        },
+    },
+});
 
 const requestLink = new ApolloLink(
     (operation, forward) =>

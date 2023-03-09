@@ -1,8 +1,8 @@
 import { FunctionComponent } from "react";
-import More from "../icons/More";
+import More from "../../../icons/More";
 import styled from "styled-components";
-import { devices } from "../../styles/devices";
-import { SmallButton } from "../../styles/global";
+import { devices } from "../../../../styles/devices";
+import { SmallButton } from "../../../../styles/global";
 
 interface PostOptionsProps {
     title: string;

@@ -7,7 +7,7 @@ import styled from "styled-components";
 import { devices } from "../../styles/devices";
 import { FeedLoading, NoPostsAlert } from "../../styles/global";
 import LoadingComponent from "../../components/utils/LoadingComponent";
-import PostComponent from "../../components/post/PostComponent";
+import PostComponent from "../../components/layouts/items/post/PostComponent";
 
 const ProfileFeedContainer = styled.div`
     display: flex;

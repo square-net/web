@@ -39,11 +39,10 @@ const EditorComponent: FunctionComponent<EditorComponentProps> = ({
                 editorState={editorState}
                 onChange={(editorState) => {
                     setEditorState(editorState);
+
                     form.setFieldValue(
                         field.name,
-                        JSON.stringify(
-                            convertToRaw(editorState.getCurrentContent())
-                        )
+                        JSON.stringify(convertToRaw(editorState.getCurrentContent()))
                     );
                 }}
                 ref={postEditorRef}

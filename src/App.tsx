@@ -15,6 +15,7 @@ import Logout from "./pages/Logout";
 import Modal from "./components/utils/modal/Modal";
 import EditProfile from "./pages/EditProfile";
 import ProfileIndex from "./pages/profile/Index";
+import PostPage from "./pages/PostPage";
 
 function App() {
     const [loading, setLoading] = useState(true);
@@ -125,6 +126,7 @@ function App() {
                     }
                 />
                 <Route path="/:username" element={<ProfileIndex />} />
+                <Route path="/:username/post/:postId" element={<PostPage />} />
                 <Route
                     path="/settings/profile"
                     element={
