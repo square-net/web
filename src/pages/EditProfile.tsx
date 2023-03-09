@@ -390,7 +390,7 @@ function EditProfile() {
 
                                         if (existingProfilePictureName !== "") {
                                             await axios.delete(
-                                                `${process.env.REACT_APP_STORAGE_LINK}${
+                                                `${process.env.REACT_APP_STORAGE_LINK}/${
                                                     process
                                                         .env
                                                         .REACT_APP_ENV ===
@@ -464,7 +464,7 @@ function EditProfile() {
                                         deleteProfilePicture
                                     ) {
                                         await axios.delete(
-                                            `${process.env.REACT_APP_STORAGE_LINK}${
+                                            `${process.env.REACT_APP_STORAGE_LINK}/${
                                                 process
                                                     .env
                                                     .REACT_APP_ENV ===
@@ -494,7 +494,7 @@ function EditProfile() {
 
                                         if (existingProfileBannerName !== "") {
                                             await axios.delete(
-                                                `${process.env.REACT_APP_STORAGE_LINK}${
+                                                `${process.env.REACT_APP_STORAGE_LINK}/${
                                                     process
                                                         .env
                                                         .REACT_APP_ENV ===
@@ -568,7 +568,7 @@ function EditProfile() {
                                         deleteProfileBanner
                                     ) {
                                         await axios.delete(
-                                            `${process.env.REACT_APP_STORAGE_LINK}${
+                                            `${process.env.REACT_APP_STORAGE_LINK}/${
                                                 process
                                                     .env
                                                     .REACT_APP_ENV ===
