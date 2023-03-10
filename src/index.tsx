@@ -25,6 +25,11 @@ const cache = new InMemoryCache({
                         return incoming;
                     },
                 },
+                userPostFeed: {
+                    merge: (_existing = [], incoming) => {
+                        return incoming;
+                    },
+                },
             },
         },
         User: {

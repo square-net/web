@@ -1,0 +1,31 @@
+query userPostFeed($userId: Float) {
+    userPostFeed(userId: $userId) {
+        id
+        postId
+        authorId
+        type
+        content
+        createdAt
+        updatedAt
+        author {
+            username
+            firstName
+            lastName
+            email
+            id
+            birthDate
+            gender
+            emailVerified
+            profile {
+                profilePicture
+                profileBanner
+                bio
+                website
+            }
+        }
+        media {
+            images
+            videos
+        }
+    }
+}

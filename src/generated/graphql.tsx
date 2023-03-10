@@ -148,6 +148,7 @@ export type Query = {
   findUser?: Maybe<User>;
   me?: Maybe<User>;
   postFeed: Array<Post>;
+  userPostFeed: Array<Post>;
 };
 
 
@@ -158,6 +159,11 @@ export type QueryFindPostArgs = {
 
 export type QueryFindUserArgs = {
   username?: InputMaybe<Scalars['String']>;
+};
+
+
+export type QueryUserPostFeedArgs = {
+  userId?: InputMaybe<Scalars['Float']>;
 };
 
 export type Session = {
@@ -298,6 +304,13 @@ export type UpdatePostMutationVariables = Exact<{
 
 
 export type UpdatePostMutation = { __typename?: 'Mutation', updatePost: { __typename?: 'PostResponse', post?: { __typename?: 'Post', id: number, postId: string, authorId: number, type: string, content: string, createdAt: string, updatedAt: string, author: { __typename?: 'User', username: string, firstName: string, lastName: string, email: string, id: number, birthDate: string, gender: string, emailVerified: boolean, profile?: { __typename?: 'Profile', profilePicture?: string | null | undefined, profileBanner?: string | null | undefined, bio?: string | null | undefined, website?: string | null | undefined } | null | undefined }, media?: { __typename?: 'Media', images?: Array<string> | null | undefined, videos?: Array<string> | null | undefined } | null | undefined } | null | undefined, errors?: Array<{ __typename?: 'FieldError', field?: string | null | undefined, message: string }> | null | undefined } };
+
+export type UserPostFeedQueryVariables = Exact<{
+  userId?: InputMaybe<Scalars['Float']>;
+}>;
+
+
+export type UserPostFeedQuery = { __typename?: 'Query', userPostFeed: Array<{ __typename?: 'Post', id: number, postId: string, authorId: number, type: string, content: string, createdAt: string, updatedAt: string, author: { __typename?: 'User', username: string, firstName: string, lastName: string, email: string, id: number, birthDate: string, gender: string, emailVerified: boolean, profile?: { __typename?: 'Profile', profilePicture?: string | null | undefined, profileBanner?: string | null | undefined, bio?: string | null | undefined, website?: string | null | undefined } | null | undefined }, media?: { __typename?: 'Media', images?: Array<string> | null | undefined, videos?: Array<string> | null | undefined } | null | undefined }> };
 
 export type VerifyEmailAddressMutationVariables = Exact<{
   token: Scalars['String'];
@@ -1056,6 +1069,67 @@ export function useUpdatePostMutation(baseOptions?: Apollo.MutationHookOptions<U
 export type UpdatePostMutationHookResult = ReturnType<typeof useUpdatePostMutation>;
 export type UpdatePostMutationResult = Apollo.MutationResult<UpdatePostMutation>;
 export type UpdatePostMutationOptions = Apollo.BaseMutationOptions<UpdatePostMutation, UpdatePostMutationVariables>;
+export const UserPostFeedDocument = gql`
+    query userPostFeed($userId: Float) {
+  userPostFeed(userId: $userId) {
+    id
+    postId
+    authorId
+    type
+    content
+    createdAt
+    updatedAt
+    author {
+      username
+      firstName
+      lastName
+      email
+      id
+      birthDate
+      gender
+      emailVerified
+      profile {
+        profilePicture
+        profileBanner
+        bio
+        website
+      }
+    }
+    media {
+      images
+      videos
+    }
+  }
+}
+    `;
+
+/**
+ * __useUserPostFeedQuery__
+ *
+ * To run a query within a React component, call `useUserPostFeedQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUserPostFeedQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUserPostFeedQuery({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useUserPostFeedQuery(baseOptions?: Apollo.QueryHookOptions<UserPostFeedQuery, UserPostFeedQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<UserPostFeedQuery, UserPostFeedQueryVariables>(UserPostFeedDocument, options);
+      }
+export function useUserPostFeedLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UserPostFeedQuery, UserPostFeedQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<UserPostFeedQuery, UserPostFeedQueryVariables>(UserPostFeedDocument, options);
+        }
+export type UserPostFeedQueryHookResult = ReturnType<typeof useUserPostFeedQuery>;
+export type UserPostFeedLazyQueryHookResult = ReturnType<typeof useUserPostFeedLazyQuery>;
+export type UserPostFeedQueryResult = Apollo.QueryResult<UserPostFeedQuery, UserPostFeedQueryVariables>;
 export const VerifyEmailAddressDocument = gql`
     mutation verifyEmailAddress($token: String!) {
   verifyEmailAddress(token: $token) {

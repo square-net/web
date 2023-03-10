@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Head from "../../components/Head";
-import { useFindUserQuery } from "../../generated/graphql";
+import { useFindUserQuery, useUserPostFeedQuery } from "../../generated/graphql";
 import ProfileComponent from "./ProfileComponent";
 import styled from "styled-components";
 import { devices } from "../../styles/devices";
@@ -39,6 +39,8 @@ function ProfileIndex() {
         variables: { username: params.username! },
         fetchPolicy: "cache-and-network",
     });
+
+    const { data: userPostFeedData } = useUserPostFeedQuery({ fetchPolicy: "cache-and-network", variables: { userId: data?.findUser?.id } });
     
     useEffect(() => {
         if ((data && data.findUser)) {
@@ -67,16 +69,15 @@ function ProfileIndex() {
             />
             <ProfileComponent content={
                 <ProfileFeedContainer>
-                    {(loading && !data) || error ? (
+                    {(loading && !data && !userPostFeedData) || error ? (
                         <FeedLoading>
                             <LoadingComponent />
                         </FeedLoading>
                     ) : (
                         <>
-                            {data?.findUser?.posts
-                                ?.length !== 0 ? (
+                            {userPostFeedData?.userPostFeed?.length !== 0 ? (
                                 <>
-                                    {data?.findUser?.posts?.map(
+                                    {userPostFeedData?.userPostFeed?.map(
                                         (post) => (
                                             <PostComponent
                                                 key={
@@ -88,9 +89,6 @@ function ProfileIndex() {
                                                 post={
                                                     post
                                                 }
-                                                user={
-                                                    data.findUser
-                                                }
                                             />
                                         )
                                     )}
@@ -99,9 +97,7 @@ function ProfileIndex() {
                                 <NoPostsAlert>
                                     <b>@
                                     {
-                                        data
-                                            .findUser
-                                            .username
+                                        data?.findUser?.username
                                     }</b>{" "}
                                     hasn't published
                                     a post yet.

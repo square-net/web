@@ -6,13 +6,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { devices } from "../../../../styles/devices";
 import { processDate } from "../../../../utils/processDate";
 import { PostOptions } from "./PostOptions";
-import { PostFeedDocument, PostFeedQuery, useDeletePostMutation, useMeQuery, usePostFeedQuery } from "../../../../generated/graphql";
+import { Post, PostFeedDocument, PostFeedQuery, UserPostFeedDocument, UserPostFeedQuery, useDeletePostMutation, useMeQuery, usePostFeedQuery, useUserPostFeedQuery } from "../../../../generated/graphql";
 import { ContentState, convertFromRaw } from "draft-js";
 
 interface PostComponentProps {
     isPostFeed: boolean;
     post: any;
-    user?: any;
 }
 
 const PostContainer = styled.div`
@@ -155,7 +154,6 @@ const PostRightContainer = styled.div`
 const PostComponent: FunctionComponent<PostComponentProps> = ({
     isPostFeed,
     post,
-    user,
 }) => {
     const navigate = useNavigate();
     let date = processDate(post.updatedAt);
@@ -172,12 +170,13 @@ const PostComponent: FunctionComponent<PostComponentProps> = ({
     const { data: postFeedData } = usePostFeedQuery({ fetchPolicy: "network-only" });
     const draftContent: ContentState = convertFromRaw(JSON.parse(post.content));
     const content = draftContent.getPlainText();
+    const { data: userPostFeedData } = useUserPostFeedQuery({ fetchPolicy: "network-only", variables: { userId: post.authorId } });
     
     return (
         <PostContainer
             role="link"
             onClick={() => {
-                navigate(`/${isPostFeed ? post.author.username : user.username}/post/${post.postId}`);
+                navigate(`/${post.author.username}/post/${post.postId}`);
             }}
         >
             <PostInnerContainer>
@@ -185,63 +184,46 @@ const PostComponent: FunctionComponent<PostComponentProps> = ({
                     <PostAuthorContainer
                         role="link"
                         aria-label={`${
-                            isPostFeed ? post.author.firstName : user.firstName
+                            post.author.firstName
                         } ${
-                            isPostFeed ? post.author.lastName : user.lastName
+                            post.author.lastName
                         }'s profile`}
                         title={`${
-                            isPostFeed ? post.author.firstName : user.firstName
+                            post.author.firstName
                         } ${
-                            isPostFeed ? post.author.lastName : user.lastName
+                            post.author.lastName
                         }'s profile`}
-                        to={isPostFeed ? `/${post.author.username}` : `/${user.username}`}
+                        to={`/${post.author.username}`}
                         onClick={(e) => e.stopPropagation()}
                     >
                         <AuthorImageContainer>
                             <img
                                 src={
-                                    isPostFeed
-                                        ? post.author.profile.profilePicture !==
-                                              "" &&
-                                          post.author.profile.profilePicture !==
-                                              null
-                                            ? post.author.profile.profilePicture
-                                            : profilePicture
-                                        : user.profile.profilePicture !== "" &&
-                                          user.profile.profilePicture !== null
-                                        ? user.profile.profilePicture
-                                        : profilePicture
+                                    post.author.profile.profilePicture !==
+                                        "" &&
+                                    post.author.profile.profilePicture !==
+                                        null
+                                    ? post.author.profile.profilePicture
+                                    : profilePicture
                                 }
                                 title={`${
-                                    isPostFeed
-                                        ? post.author.firstName
-                                        : user.firstName
+                                    post.author.firstName
                                 }'s profile picture`}
                                 alt={`${
-                                    isPostFeed
-                                        ? post.author.firstName
-                                        : user.firstName
+                                    post.author.firstName
                                 } ${
-                                    isPostFeed
-                                        ? post.author.lastName
-                                        : user.lastName
+                                    post.author.lastName
                                 }`}
                             />
                         </AuthorImageContainer>
                         <AuthorInfo>
                             <AuthorFullName>
-                                {isPostFeed
-                                    ? post.author.firstName
-                                    : user.firstName}{" "}
-                                {isPostFeed
-                                    ? post.author.lastName
-                                    : user.lastName}
+                                {post.author.firstName}{" "}
+                                {post.author.lastName}
                             </AuthorFullName>
                             <AuthorUsername>
                                 @
-                                {isPostFeed
-                                    ? post.author.username
-                                    : user.username}
+                                {post.author.username}
                             </AuthorUsername>
                         </AuthorInfo>
                     </PostAuthorContainer>
@@ -276,29 +258,58 @@ const PostComponent: FunctionComponent<PostComponentProps> = ({
                                                 onClick={async (e) => {
                                                     e.stopPropagation();
 
-                                                    await deletePost({
-                                                        variables: {
-                                                            postId: post.postId,
-                                                        },
-                                                        update: (store, { data }) => {
-                                                            if (
-                                                                data &&
-                                                                data.deletePost
-                                                            ) {
-                                                                const postsData = postFeedData?.postFeed || [];
-                                                                const selectedPost = postsData.find((item) => item.id === post.id);
-                                                                const index = postsData.indexOf(selectedPost!);
-                                                                postsData.splice(index!, 1);
-                                                                
-                                                                store.writeQuery<PostFeedQuery>({
-                                                                    query: PostFeedDocument,
-                                                                    data: {
-                                                                        postFeed: postsData,
-                                                                    },
-                                                                });
-                                                            }
-                                                        },
-                                                    });
+                                                    if (isPostFeed) {
+                                                        await deletePost({
+                                                            variables: {
+                                                                postId: post.postId,
+                                                            },
+                                                            update: (store, { data }) => {
+                                                                if (
+                                                                    data &&
+                                                                    data.deletePost
+                                                                ) {
+                                                                    const postsData = postFeedData?.postFeed || [];
+                                                                    const selectedPost = postsData.find((item) => item.id === post.id);
+                                                                    const index = postsData.indexOf(selectedPost!);
+                                                                    postsData.splice(index!, 1);
+                                                                    
+                                                                    store.writeQuery<PostFeedQuery>({
+                                                                        query: PostFeedDocument,
+                                                                        data: {
+                                                                            postFeed: postsData,
+                                                                        },
+                                                                    });
+                                                                }
+                                                            },
+                                                        });
+                                                    } else {
+                                                        await deletePost({
+                                                            variables: {
+                                                                postId: post.postId,
+                                                            },
+                                                            update: (store, { data }) => {
+                                                                if (
+                                                                    data &&
+                                                                    data.deletePost
+                                                                ) {
+                                                                    const userData = userPostFeedData?.userPostFeed || [];
+                                                                    const selectedPost = userData.find((item: Post) => item.id === post.id);
+                                                                    const index = userData.indexOf(selectedPost!);
+                                                                    userData.splice(index!, 1);
+                                                                    
+                                                                    store.writeQuery<UserPostFeedQuery>({
+                                                                        query: UserPostFeedDocument,
+                                                                        data: {
+                                                                            userPostFeed: userData,
+                                                                        },
+                                                                        variables: {
+                                                                            userId: post.authorId,
+                                                                        },
+                                                                    });
+                                                                }
+                                                            },
+                                                        });
+                                                    }
                                                 }}
                                             >
                                                 Delete post
