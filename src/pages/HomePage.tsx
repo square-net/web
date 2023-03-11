@@ -88,23 +88,7 @@ function HomePage() {
                     }
                     sideColumn={
                         <>
-                            Classic column. <br />
-                            Classic column. <br />
-                            Classic column. <br />
-                            Classic column. <br />
-                            Classic column. <br />
-                            Classic column. <br />
-                            Classic column. <br />
-                            Classic column. <br />
-                            Classic column. <br />
-                            Classic column. <br />
-                            Classic column. <br />
-                            Classic column. <br />
-                            Classic column. <br />
-                            Classic column. <br />
-                            Classic column. <br />
-                            Classic column. <br />
-                            Classic column. <br />
+                            Classic column.
                         </>
                     } />
                 }

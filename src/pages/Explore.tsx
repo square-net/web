@@ -13,53 +13,12 @@ function Explore() {
                 children={
                     <PageContentLayout type="main" searchBar={true} content={
                         <>
-                            Explore main data. <br />
-                            Explore main data. <br />
-                            Explore main data. <br />
-                            Explore main data. <br />
-                            Explore main data. <br />
-                            Explore main data. <br />
-                            Explore main data. <br />
-                            Explore main data. <br />
-                            Explore main data. <br />
-                            Explore main data. <br />
-                            Explore main data. <br />
-                            Explore main data. <br />
-                            Explore main data. <br />
-                            Explore main data. <br />
-                            Explore main data. <br />
-                            Explore main data. <br />
-                            Explore main data. <br />
-                            Explore main data. <br />
-                            Explore main data. <br />
-                            Explore main data. <br />
-                            Explore main data. <br />
-                            Explore main data. <br />
-                            Explore main data. <br />
-                            Explore main data. <br />
-                            Explore main data. <br />
+                            Explore main data.
                         </>
                     } 
                     sideColumn={
                         <>
-                            Explore column. <br />
-                            Explore column. <br />
-                            Explore column. <br />
-                            Explore column. <br />
-                            Explore column. <br />
-                            Explore column. <br />
-                            Explore column. <br />
-                            Explore column. <br />
-                            Explore column. <br />
-                            Explore column. <br />
-                            Explore column. <br />
-                            Explore column. <br />
-                            Explore column. <br />
-                            Explore column. <br />
-                            Explore column. <br />
-                            Explore column. <br />
-                            Explore column. <br />
-                            Explore column. <br />
+                            Explore column.
                         </>
                     } />
                 }
