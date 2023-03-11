@@ -10,7 +10,7 @@ const ModalLoadingContainer = styled.div`
     height: calc(100vh - 60px);
 
     @media ${devices.tablet} {
-        height: 65vh;
+        height: calc(65vh - 60px);
     }
 `;
 

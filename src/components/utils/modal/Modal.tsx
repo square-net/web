@@ -47,13 +47,12 @@ const ModalOuterContainer = styled.div`
     @media ${devices.tablet} and (min-height: 480px) {
         border-radius: 16px;
         width: 480px;
-        height: auto;
+        height: 65vh;
     }
 
     @media ${devices.laptopL} {
         border-radius: 16px;
         width: 540px;
-        height: auto;
     }
 `;
 
@@ -65,6 +64,7 @@ const ModalContainer = styled.div`
     z-index: 10000;
     background-color: #151414;
     width: 100%;
+    height: 100%;
 
     @media ${devices.mobileL} {
         width: 380px;
@@ -131,11 +131,7 @@ const CloseModal = styled.div`
 const ModalContent = styled.div`
     display: block;
     width: 100%;
-    max-height: calc(100vh - 60px);
-
-    @media ${devices.tablet} and (min-height: 480px) {
-        max-height: 65vh;
-    }
+    height: calc(100% - 60px);
 `;
 
 const Modal: FunctionComponent<ModalProps> = ({ modalContent, headerText }) => {
