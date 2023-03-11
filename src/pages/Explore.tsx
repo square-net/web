@@ -12,7 +12,33 @@ function Explore() {
             <PageLayout 
                 children={
                     <PageContentLayout type="main" searchBar={true} content={
-                        <>Explore.</>
+                        <>
+                            Explore main data. <br />
+                            Explore main data. <br />
+                            Explore main data. <br />
+                            Explore main data. <br />
+                            Explore main data. <br />
+                            Explore main data. <br />
+                            Explore main data. <br />
+                            Explore main data. <br />
+                            Explore main data. <br />
+                            Explore main data. <br />
+                            Explore main data. <br />
+                            Explore main data. <br />
+                            Explore main data. <br />
+                            Explore main data. <br />
+                            Explore main data. <br />
+                            Explore main data. <br />
+                            Explore main data. <br />
+                            Explore main data. <br />
+                            Explore main data. <br />
+                            Explore main data. <br />
+                            Explore main data. <br />
+                            Explore main data. <br />
+                            Explore main data. <br />
+                            Explore main data. <br />
+                            Explore main data. <br />
+                        </>
                     } 
                     sideColumn={
                         <>

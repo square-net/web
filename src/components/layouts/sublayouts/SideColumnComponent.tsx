@@ -15,10 +15,7 @@ const SideColumnComponentContainer = styled.div.attrs(
 
     @media ${devices.tablet} and (max-height: 480px) {
         display: grid;
-        position: sticky;
-        top: 0;
         width: 100%;
-        max-height: calc(100vh - 60px);
         grid-template-columns: 100%;
         grid-template-rows: ${props => props.isSearchPage ? "auto" : "60px auto"};
         padding-right: 12px;
@@ -26,10 +23,7 @@ const SideColumnComponentContainer = styled.div.attrs(
 
     @media ${devices.laptopS} and (min-height: 480px) {
         display: grid;
-        position: sticky;
-        top: 0;
         width: 100%;
-        max-height: 100vh;
         grid-template-columns: 100%;
         grid-template-rows: ${props => props.isSearchPage ? "auto" : "60px auto"};
         padding-right: 12px;
@@ -37,10 +31,7 @@ const SideColumnComponentContainer = styled.div.attrs(
 
     @media ${devices.laptopL} {
         display: grid;
-        position: sticky;
-        top: 0;
         width: 100%;
-        max-height: 100vh;
         grid-template-columns: 100%;
         grid-template-rows: ${props => props.isSearchPage ? "auto" : "60px auto"};
         padding-right: 12px;
@@ -58,11 +49,22 @@ const SideColumnHeader = styled.div`
 `;
 
 const SideColumnContent = styled.div`
-    display: grid;
-    gap: 12px;
+    display: block;
+    position: relative;
     padding-top: 12px;
     width: 100%;
     padding-bottom: 12px;
+`;
+
+const SideColumnInnerContainer = styled.div.attrs(
+    (props: { isSearchPage?: boolean }) => props
+)`
+    display: grid;
+    position: sticky;
+    top: ${props => props.isSearchPage ? "12px" : "72px"};
+    gap: 12px;
+    width: 100%;
+    max-height: calc(100% - 24px);
 `;
 
 export const SideColumnComponent: FunctionComponent<SideColumnComponentProps> = ({ isSearchPage, sideColumnContent }) => {
@@ -74,7 +76,9 @@ export const SideColumnComponent: FunctionComponent<SideColumnComponentProps> = 
                 </SideColumnHeader>
             )}
             <SideColumnContent>
-                {sideColumnContent}
+                <SideColumnInnerContainer isSearchPage={isSearchPage}>
+                    {sideColumnContent}
+                </SideColumnInnerContainer>
             </SideColumnContent>
         </SideColumnComponentContainer>
     );

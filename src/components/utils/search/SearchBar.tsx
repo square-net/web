@@ -52,7 +52,6 @@ function SearchBar() {
                         spellCheck="false"
                         autoComplete="off"
                         autoCorrect="off"
-                        autoFocus
                         aria-required
                         id="search-input"
                         name="search-input"
