@@ -8,6 +8,8 @@ import Logo from "./icons/Logo";
 import More from "./icons/More";
 import Profile from "./icons/Profile";
 import profilePicture from "../images/profile-picture.svg";
+import Magnifier from "./icons/Magnifier";
+import Bell from "./icons/Bell";
 
 const NavContainer = styled.div`
     display: block;
@@ -432,6 +434,44 @@ function Nav() {
                                                 <Home isActive={isActive ? true : false} />
                                             </NavEntryIcon>
                                             <NavEntryText>Home</NavEntryText>
+                                        </>
+                                    )}
+                                </NavLink>
+                            </NavEntry>
+                            <NavEntry>
+                                <NavLink
+                                    className={(navData: any) =>
+                                        navData.isActive ? "active" : ""
+                                    }
+                                    to="/explore"
+                                    title="Explore"
+                                    aria-label="Explore"
+                                >
+                                    {({ isActive }) => (
+                                        <>
+                                            <NavEntryIcon>
+                                                <Magnifier type="normal" isActive={isActive ? true : false} />
+                                            </NavEntryIcon>
+                                            <NavEntryText>Explore</NavEntryText>
+                                        </>
+                                    )}
+                                </NavLink>
+                            </NavEntry>
+                            <NavEntry>
+                                <NavLink
+                                    className={(navData: any) =>
+                                        navData.isActive ? "active" : ""
+                                    }
+                                    to="/notifications"
+                                    title="Notifications"
+                                    aria-label="Notifications"
+                                >
+                                    {({ isActive }) => (
+                                        <>
+                                            <NavEntryIcon>
+                                                <Bell isActive={isActive ? true : false} />
+                                            </NavEntryIcon>
+                                            <NavEntryText>Notifications</NavEntryText>
                                         </>
                                     )}
                                 </NavLink>
