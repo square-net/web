@@ -3,6 +3,7 @@ import { FunctionComponent } from "react";
 import { useNavigate, useNavigationType } from "react-router-dom";
 import { devices } from "../../../styles/devices";
 import Back from "../../icons/Back";
+import { ControlContainer } from "../../../styles/global";
 
 interface ModalProps {
     modalContent: JSX.Element;
@@ -109,23 +110,10 @@ const ModalTitle = styled.div`
     font-weight: 700;
     color: #ffffff;
     font-size: inherit;
-    width: 100%;
+    width: calc(100% - 52px);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-`;
-
-const CloseModal = styled.div`
-    display: block;
-    cursor: pointer;
-    padding: 6px;
-    border-radius: 9999px;
-    background-color: transparent;
-    transition: background-color ease 0.2s;
-
-    &:hover, &:focus {
-        background-color: rgba(56, 53, 53, 0.6);
-    }
 `;
 
 const ModalContent = styled.div`
@@ -156,7 +144,7 @@ const Modal: FunctionComponent<ModalProps> = ({ modalContent, headerText }) => {
             <ModalOuterContainer>
                 <ModalContainer>
                     <ModalHeader>
-                        <CloseModal
+                        <ControlContainer
                             role="button"
                             title="Close modal"
                             aria-label="Close modal"
@@ -169,7 +157,7 @@ const Modal: FunctionComponent<ModalProps> = ({ modalContent, headerText }) => {
                             }}
                         >
                             <Back />
-                        </CloseModal>
+                        </ControlContainer>
                         <ModalTitle>{headerText}</ModalTitle>
                     </ModalHeader>
                     <ModalContent>{modalContent}</ModalContent>

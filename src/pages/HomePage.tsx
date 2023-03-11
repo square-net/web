@@ -85,6 +85,27 @@ function HomePage() {
                                 )}
                             </PostFeedContainer>
                         </HomePageContainer>
+                    }
+                    sideColumn={
+                        <>
+                            Classic column. <br />
+                            Classic column. <br />
+                            Classic column. <br />
+                            Classic column. <br />
+                            Classic column. <br />
+                            Classic column. <br />
+                            Classic column. <br />
+                            Classic column. <br />
+                            Classic column. <br />
+                            Classic column. <br />
+                            Classic column. <br />
+                            Classic column. <br />
+                            Classic column. <br />
+                            Classic column. <br />
+                            Classic column. <br />
+                            Classic column. <br />
+                            Classic column. <br />
+                        </>
                     } />
                 }
             />

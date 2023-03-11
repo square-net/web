@@ -16,6 +16,8 @@ import Modal from "./components/utils/modal/Modal";
 import EditProfile from "./pages/EditProfile";
 import ProfileIndex from "./pages/profile/Index";
 import PostPage from "./pages/PostPage";
+import Notifications from "./pages/Notifications";
+import Explore from "./pages/Explore";
 
 function App() {
     const [loading, setLoading] = useState(true);
@@ -113,6 +115,24 @@ function App() {
                         <IsAuthenticated
                             isAuth={isAuth}
                             children={<HomePage />}
+                        />
+                    }
+                />
+                <Route
+                    path="/explore"
+                    element={
+                        <IsAuthenticated
+                            isAuth={isAuth}
+                            children={<Explore />}
+                        />
+                    }
+                />
+                <Route
+                    path="/notifications"
+                    element={
+                        <IsAuthenticated
+                            isAuth={isAuth}
+                            children={<Notifications />}
                         />
                     }
                 />

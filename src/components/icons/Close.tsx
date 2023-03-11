@@ -9,8 +9,8 @@ interface CloseProps {
 const CloseIcon = styled(SvgIcon).attrs(
     (props: { isNormal: boolean }) => props
 )`
-    width: ${props => props.isNormal ? "22px" : "20px"};
-    height: ${props => props.isNormal ? "22px" : "20px"};
+    width: ${props => props.isNormal ? "20px" : "18px"};
+    height: ${props => props.isNormal ? "20px" : "18px"};
     fill: none;
     stroke: #ffffff;
 `;

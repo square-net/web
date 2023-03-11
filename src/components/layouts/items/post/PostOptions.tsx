@@ -31,7 +31,8 @@ const PostOptionsButton = styled.div`
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    padding: 6px;
+    width: 36px;
+    height: 36px;
     border-radius: 9999px;
     background-color: transparent;
     transition: background-color ease 0.2s;
@@ -41,9 +42,7 @@ const PostOptionsButton = styled.div`
     }
 `;
 
-const OptionsContainer = styled.div.attrs(
-    (props: { position: { top: number, right: number } }) => props
-)`
+const OptionsContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 6px;

@@ -472,6 +472,9 @@ const ProfileComponent: FunctionComponent<ProfileComponentProps> = ({ content })
                             )}
                         </>
                     }
+                    sideColumn={
+                        <>Classic column.</>
+                    }
                 />
             }
         />

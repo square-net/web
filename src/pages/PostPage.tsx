@@ -315,6 +315,9 @@ function PostPage() {
                                 )}
                             </>
                         }
+                        sideColumn={
+                            <>Classic column.</>
+                        }
                     />
                 }
             />

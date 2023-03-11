@@ -7,12 +7,16 @@ import { useNavigate, useNavigationType } from "react-router-dom";
 import { PageText } from "../../../styles/global";
 import { useFindUserQuery, useMeQuery } from "../../../generated/graphql";
 import Menu from "../../Menu";
+import SearchBar from "../../utils/search/SearchBar";
+import { SideColumnComponent } from "./SideColumnComponent";
 
 export interface PageContentLayoutProps {
     title?: string;
     type: string;
     username?: string;
+    searchBar?: boolean;
     content: JSX.Element;
+    sideColumn: JSX.Element;
 }
 
 const PageContentContainer = styled.div`
@@ -131,34 +135,6 @@ const MainContentContainer = styled.div`
     }
 `;
 
-const SideColumnContainer = styled.div`
-    display: none;
-
-    @media ${devices.tablet} and (max-height: 480px) {
-        display: grid;
-        position: sticky;
-        top: 0;
-        width: 100%;
-        height: calc(100vh - 60px);
-    }
-
-    @media ${devices.laptopS} and (min-height: 480px) {
-        display: grid;
-        position: sticky;
-        top: 0;
-        width: 100%;
-        height: 100vh;
-    }
-
-    @media ${devices.laptopL} {
-        display: grid;
-        position: sticky;
-        top: 0;
-        width: 100%;
-        height: 100vh;
-    }
-`;
-
 const MainHeaderBaseContainer = styled.div`
     display: flex;
     align-items: center;
@@ -221,7 +197,9 @@ const PageContentLayout: FunctionComponent<PageContentLayoutProps> = ({
     title,
     type,
     username,
+    searchBar,
     content,
+    sideColumn,
 }) => {
     const navigate = useNavigate();
     const navigationType = useNavigationType();
@@ -285,16 +263,20 @@ const PageContentLayout: FunctionComponent<PageContentLayoutProps> = ({
                                     ) : null}
                                 </>
                             ) : null}
-                            <MainHeaderTitle
-                                role="link"
-                                title="Go to the top"
-                                aria-label="Go to the top"
-                                onClick={() => {
-                                    window.scrollTo(0, 0);
-                                }}
-                            >
-                                {title}
-                            </MainHeaderTitle>
+                            {searchBar ? (
+                                <SearchBar />
+                            ) : (
+                                <MainHeaderTitle
+                                    role="link"
+                                    title="Go to the top"
+                                    aria-label="Go to the top"
+                                    onClick={() => {
+                                        window.scrollTo(0, 0);
+                                    }}
+                                >
+                                    {title}
+                                </MainHeaderTitle>
+                            )}
                         </MainHeaderContainer>
                     ) : (
                         <MainHeaderControlContainer>
@@ -353,7 +335,10 @@ const PageContentLayout: FunctionComponent<PageContentLayoutProps> = ({
                 </MainHeader>
                 <MainContentContainer>{content}</MainContentContainer>
             </MainContainer>
-            <SideColumnContainer>Column</SideColumnContainer>
+            <SideColumnComponent
+                isSearchPage={searchBar}
+                sideColumnContent={sideColumn}
+            />
         </PageContentContainer>
     );
 };

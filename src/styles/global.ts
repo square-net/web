@@ -223,7 +223,7 @@ export const ControlContainer = styled.div.attrs(
 
     &:hover,
     &:focus {
-        background-color: #c0c0c0;
+        background-color: rgba(56, 53, 53, 0.6);
     }
 `;
 

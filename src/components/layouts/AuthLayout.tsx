@@ -4,7 +4,7 @@ import { Link, useNavigate, useNavigationType } from "react-router-dom";
 import Logo from "../icons/Logo";
 import styled from "styled-components";
 import { devices } from "../../styles/devices";
-import { PageBlock, PageTextMT48 } from "../../styles/global";
+import { ControlContainer, PageBlock, PageTextMT48 } from "../../styles/global";
 
 export interface AuthLayoutProps {
     content: JSX.Element;
@@ -40,24 +40,11 @@ const AuthPageHeader = styled.div`
     }
 `;
 
-const ExitAuthPage = styled.div`
-    display: block;
-    cursor: pointer;
-    padding: 6px;
-    border-radius: 9999px;
-    background-color: transparent;
-    transition: background-color ease 0.2s;
-
-    &:hover, &:focus {
-        background-color: rgba(56, 53, 53, 0.6);
-    }
-`;
-
 const AuthPageLogo = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
+    width: calc(100% - 36px);
     padding-right: 36px;
 `;
 
@@ -104,7 +91,7 @@ const AuthLayout: FunctionComponent<AuthLayoutProps> = ({ content }) => {
     return (
         <AuthPage>
             <AuthPageHeader>
-                <ExitAuthPage
+                <ControlContainer
                     title="Go back"
                     role="button"
                     aria-label="Go back"
@@ -117,7 +104,7 @@ const AuthLayout: FunctionComponent<AuthLayoutProps> = ({ content }) => {
                     }}
                 >
                     <Back />
-                </ExitAuthPage>
+                </ControlContainer>
                 <AuthPageLogo>
                     <Link
                         to="/"
